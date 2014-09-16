@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Desarrollo de Aplicaciones con Android - Seminario 2 (AUS)</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Patricio Keilty">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Apps móviles con Android</h1>
+					<h2>Seminario 2 - Analista Universitario en sistemas</h2>
+					<h4>2da Semana</h4>
+					<p>
+						<small>Created by <a href="http://keilty.com.ar">Patricio Keilty</a> / <a href="http://twitter.com/patokeilty">@patokeilty</a></small>
+					</p>
+                    <p>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+                            <img alt="Licencia Creative Commons" style="border-width:0" src="img/cc-by-nc-sa-88x31.png" />
+                        </a>
+                    </p>
+				</section>
+
+				<section>
+					<h2>Fundamento de Aplicaciones</h2>
+					<p>Bloques fundamentales para la construcción de aplicaciones
+					<ul>
+						<li class="fragment roll-in">Activities (parte de la UI)</li>
+						<li class="fragment roll-in">Services (ejecución de procesos en background)</li>
+						<li class="fragment roll-in">BroadcastReceivers (eventos en dispositivo)</li>
+						<li class="fragment roll-in">ContentProvides (almacenamiento de datos)</li>
+					</ul>
+					</p>
+
+				</section>
+
+				<section>
+						<h2>Componentes de una aplicación</h2>
+						<h3>Activity class</h3>
+<ul>
+						<li class="fragment roll-in">
+							clase central para interactuar con el usuario, presentar la interface (UI)
+						</li>
+						<li class="fragment roll-in" >
+							una activity deber estar enfocada en la realización de una acción simple del usuario (ej. marcado de un número telefónico, ingresar datos de un contacto)
+						</li>
+</ul>
+
+				</section>
+				<section>
+						<h3>Service class</h3>
+		<p>
+						<li class="fragment roll-in">
+							Corre en background (no hay necesidad que tengan interfaz de usuario)
+						</li>
+						<li class="fragment roll-in" >
+							propósitos generales: 
+<ul><li class="fragment roll-in">pueden ejecutar tareas que corren por largos períodos de tiempo,</li>
+<li class="fragment roll-in">segundo, proveen una manera de que diferentes procesos invoquen operaciones o compartan datos.</li></ul>
+						</li>
+		</p>
+		<p class="fragment roll-in">típico ejemplo: MediaPlayback Service, permite seguir escuchando música mientras se invocan otras apps, o activities.
+				</section>
+
+				<section>
+					<section>
+					<h3>Broadcast Receiver</h3>
+						<p>escucha y responde ante eventos del sistema
+                    <ul>
+                        <li  class="fragment roll-in">eventos <-> Android Intents</li>
+                        <li  class="fragment roll-in">Publishers entonces crean un Intent y lo transmiten (broadcast)</li>
+                        <li  class="fragment roll-in">esos Intents son encaminados a los respectivos receptores, que han subscripto para recibir ese tipo de eventos.</li>
+                    </ul>
+			<p class="fragment roll-in">ejemplo típico: SMS app, tiene una parte que es un Broadcast Receiver, y al recibir un evento de llegada de SMS, se dispara un servicio para descargar y almacenar el sms.  
+
+					</section>
+					<section>
+						<h3>Content Provider</h3>
+						<p>Permite a una app almacenar y compartir datos</p>
+                    <ul>
+                        <li  class="fragment roll-in">usan una interface estilo base de datos</li>
+                        <li  class="fragment roll-in">pero se encargan de mucho mas, como manejar los detalles de la comunicación entre procesos</li>
+                    </ul>
+			<p class="fragment roll-in">el navegador es un ejemplo de Content Provider, porque almacena los sitios favoritos (bookmarks) de usuario y permite acceder y compartir estos datos desde otras apps.
+					</section>
+				</section>
+
+
+					<section>
+						<h3>App ejemplo: NumberDialer</h3>
+						<p>esta aplicación involucra 2 Activities</p>
+					</section>
+
+
+
+					<section>
+					<section>
+						<h2>Construyendo una App</h2>
+						<p>
+			<img title="local" src="img/build-simplified.png">
+						</p>
+					</section>
+					<section>
+						<h3>Construyendo una App</h3>
+						<p>Típicamente como desarrollador debemos hacernos cargos de lo siguiente</p>
+                        <ol>
+                        <li class="fragment roll-in">definir recursos</li>
+                        <li class="fragment roll-in">implementar clases de la app</li>
+                        <li class="fragment roll-in">empaquetar app</li>
+                        <li class="fragment roll-in">instalar y correr/debuggear app</li>
+                        </ol>
+					</section>
+					<section>
+						<h2>Definir Recursos</h2>
+						<p></p>
+                        <ul>
+                        <li class="fragment roll-in">son entidades sin código</li>
+                        <li class="fragment roll-in">muchos tipos diferentes: layouts, strings, imágenes, menúes, animaciones</li>
+                        <li class="fragment roll-in">permiten customizar app para distintos dispositivos, sin necesidad de recompilar todo</li>
+                        <ul>
+<p class="fragment current-visible">
+					</section>
+
+					<section>
+						<h3>Strings</h3>
+						<p></p>
+                        <ul>
+                        <li class="fragment roll-in">tipos: strings, string arrays, plurals</li>
+                        <li class="fragment roll-in">ubicados en res/values/*.xml</li>
+                        <li class="fragment roll-in">especificado en XML: &lt;string name=""&gt;Hola mundo!&lt;/string&gt;</li>
+                        <li class="fragment roll-in">ej: localización el español</li>
+                        <li class="fragment roll-in">accedido x recursos: @string/string_name</li>
+                        <li class="fragment roll-in">y desde java: R.string.string_name</li>
+                        <ul>
+<p class="fragment current-visible">veamos un ejemplo en la app NumberDialer
+					</section>
+
+					</section>
+
+
+					<section>
+						<h3>Layouts</h3>
+						<p></p>
+                        <ul>
+                        <li class="fragment roll-in">UI Layouts especifica en XML como se visualizan partes de una app</li>
+                        <li class="fragment roll-in">algunas herramientas permiten diseñar el layout visualmente</li>
+                        <li class="fragment roll-in">XML layouts se guardan bajo res/layout/*.xml</li>
+                        <li class="fragment roll-in">accedido desde java: R.layout.layout_name</li>
+                        <li class="fragment roll-in">accedido desde otros recursos: @layout/layout_name</li>
+                        <ul>
+					</section>
+
+					<section>
+						<h3>Layouts múltiples</h3>
+						<p>Se puede especificar un layout diferente basado en: orientación, tamaño screen, etc</p>
+					</section>
+
+
+
+					<section>
+						<h3>R</h3>
+						<p>R.java</p>
+                        <ul>
+                        <li class="fragment roll-in">En tiempo de compilación es generada la clase R.java</li>
+                        <li class="fragment roll-in">Java usa las referencias en R.java para acceder a los recursos</li>
+                        <ul>
+					</section>
+
+
+					<section>
+						<h2>Implementar clases de la app</h2>
+						<p></p>
+                        <ul>
+                        <li class="fragment roll-in">típicamente involucra definir algún componente básico: típicamente una Activity</li>
+                        <li class="fragment roll-in">código de inicialización del Activity: onCreate(..) </li>
+                        <li class="fragment roll-in">
+<ol>
+<li class="fragment roll-in">restaurar estado de la app</li>
+<li class="fragment roll-in">setear el contenido de la vista (content view), le dice al sistema cuál es la interface de usuario de la activity</li>
+<li class="fragment roll-in">inicialzar elementos específicos de la UI</li>
+<li class="fragment roll-in">vincular código para el manejor de interacción con elementos del UI</li>
+</ol>
+			</li>
+                        <ul>
+<p class="fragment current-visible">
+					</section>
+
+
+					<section>
+						<h2>Packaging de la app</h2>
+						<p>Generar el paquete con todas las clases, recursos de la app. Definido en fichero AndroidManifest.xml</p>
+                        <ul>
+                        <li class="fragment roll-in">nombre de la aplicación</li>
+                        <li class="fragment roll-in">lista de componentes que componen la app</li>
+                        <li class="fragment roll-in">permisos para correr esta aplicación: 
+<pre><code data-trim>&lt;uses-permission&gt;</code></pre></li>
+                        <li class="fragment roll-in">características de hardware que emplea según las versiones del API que usa, y cuál es la mínima requerida: 
+<pre><code data-trim>&lt;uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" /&gt;</code></pre></li>
+                        <ul>
+					</section>
+
+
+					<section>
+						<h2>Instalación y ejecución de la app</h2>
+						<p>Veamos nuestra aplicación andando...</p>
+					</section>
+
+					<section>
+						<h1>Activity</h1>
+						<p>Componente visual del app</p>
+                        <ul>
+                        <li class="fragment roll-in">provee una UI para interacción con el usuario</li>
+                        <li class="fragment roll-in">una app se puede componer de un encadenamiento de 1+ Activity</li>
+                        <li class="fragment roll-in">en Android, una tarea (Task) comprende una serie de Activities relacionadas, como resultado de las acciones del usuario</li>
+                        <li class="fragment roll-in">la navegación de una Activity a otra en Android está asociada al concepto de: Task (tarea) y Task Backstack (pila de activities)</li>
+                        <ul>
+					</section>
+
+
+                <section>
+                    <h2>Task Backstack</h2>
+                        <img title="local" src="img/diagram_backstack.png">
+			<p>
+                        <ul>
+                        <li class="fragment roll-in">lanza una app ventana principal: Activity1</li>
+                        <li class="fragment roll-in">luego inicia Activity2</li>
+                        <li class="fragment roll-in">luego inicia Activity3</li>
+                        <li class="fragment roll-in">se presiona botón back: Activity3 destruida</li>
+                        <li class="fragment roll-in">Activity2 queda al frente</li>
+                        </ul>
+			</p>
+			<p class="fragment roll-in">mas detalles en : <a href="http://developer.android.com/guide/topics/fundamentals/tasks-and-back-stack.html">http://developer.android.com/guide/topics/fundamentals/tasks-and-back-stack.html</a></p>
+                </section>
+
+					<section>
+						<h3>Estados de un Activity</h3>
+						<p></p>
+                        <ul>
+                        <li class="fragment roll-in">Resumed/Running - visible, ususario interactuando</li>
+                        <li class="fragment roll-in">Paused/Visible - visible, usuario no interactúa, puede ser destruida</li>
+                        <li class="fragment roll-in">Stopped - no visible, puede ser destruida</li>
+                        <ul>
+					</section>
+					<section>
+						<h3>Callbacks de un Activity</h3>
+						<p></p>
+                        <ul>
+                        <li class="fragment roll-in">onCreate() - cuando va a ser creada</li>
+                        <li class="fragment roll-in">onStart() - cuando está por ser visible</li>
+                        <li class="fragment roll-in">onDestroy() - cuando va a ser destruida</li>
+                        <ul>
+					</section>
+					<section>
+						<h3>Ciclo de vida de un Activity</h3>
+						<p><img title="local" src="img/activity_lifecycle.png"></p>
+					</section>
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

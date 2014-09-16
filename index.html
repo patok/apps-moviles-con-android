@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Desarrollo de Aplicaciones con Android - Seminario 2 (AUS)</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Apps móviles con Android</h1>
+					<h3>Seminario 2 - Analista Universitario en sistemas</h3>
+					<p>
+						<small>Created by <a href="http://keilty.com.ar">Patricio Keilty</a> / <a href="http://twitter.com/patokeilty">@patokeilty</a></small>
+					</p>
+                    <p>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+                            <img alt="Licencia Creative Commons" style="border-width:0" src="img/cc-by-nc-sa-88x31.png" />
+                        </a>
+                    </p>
+				</section>
+
+				<section>
+					<h2>En qué consiste la materia?</h2>
+					<p>
+					<ul>
+						<li>régimen de cursado</li>
+						<li>asistencias?</li>
+						<li>prácticas?</li>
+						<li>cómo apruebo? exámenes? TPs?</li>
+					</ul>
+					</p>
+
+				</section>
+
+				<!-- Example of nested vertical slides -->
+				<section>
+						<h2>La plataforma Android</h2>
+<ul>
+						<li class="fragment roll-in">
+							Android es una plataforma (entiéndase pila de software) que permite correr aplicaciones en dispositivos móviles: teléfonos, tablets, relojes(wearables).
+						</li>
+						<li class="fragment roll-in" >
+							Opera con distintos componentes a distintos niveles: kernel SO, librerías de sistema, framework de aplicaciones, y aplicaciones principales (marcador teléfono, gestor de contactos, navegador, cámara de fotos).
+						</li>
+						<li class="fragment roll-in">
+							También provee herramientas para el desarrollo de aplicaciones: SDK (soft development kit), que incluye librerías y herramientas de desarrollo.
+						</li>
+						<li class="fragment roll-in">
+							Provee además un montón de documentación!
+						</li>
+</ul>
+
+				</section>
+				<section>
+						<h2>La arquitectura de Android</h2>
+		<p>
+		<div class="" style="position: absolute; z-index: 0;">
+			<img style="" src="img/android_architecture.png">
+		</div>
+		<!--div class="fragment current-visible sl-block-content" style="position: absolute; z-index: -1;">
+			<img style="visibility: visible;" src="img/android_architecture_1.png">
+		</div-->
+
+<!-- TODO complete! -->
+
+		</p>
+				</section>
+
+				<section>
+					<section>
+					<h2>Linux kernel</h2>
+						<p>Servicios estándares</
+                    <ul>
+                        <li  class="fragment roll-in">Seguridad - arquitectura de permisos (aisla datos y recursos entre apps)</li>
+                        <li  class="fragment roll-in">Gestor de memoria y procesos (evita que procesos interfieran entre si)</li>
+                        <li  class="fragment roll-in">Entrada/Salida de Red y sistema de ficheros</li>
+                        <li class="fragment roll-in">Manejador de dispositivos (Device Drivers ) - componentes de hardware: cámara, sensores, sdcards</li>
+                    </ul>
+
+					</section>
+					<section>
+						<h2>Linux kernel</h2>
+						<p>Servicios extras</p>
+                    <ul>
+                        <li  class="fragment roll-in">Gestión Energía (Power Management) - uso de batería</li>
+                        <li  class="fragment roll-in">Gestor de Memoria compartida, memoria para apps</li>
+                        <li class="fragment roll-in">IPC (comunicación inter procesos via RPC - Binder)</li>
+                        <li class="fragment roll-in"></li>
+                    </ul>
+
+					</section>
+				</section>
+
+
+					<section>
+						<h2>Librerías Nativas</h2>
+						<p>Librerías principales, escritas en C/C++</p>
+<p>típicamente se encargan de:procesos intensivos en uso de cpu y performance (rendering y actualización del display)
+
+                        <ul>
+                        <li class="fragment roll-in">System libC: creación procesos e hilos, alocación de memoria, funciones/rutinas matemáticas</li>
+                        <li class="fragment roll-in">Surface manager: actualización display</li>
+                        <li class="fragment roll-in">Media framework: para reproducir/grabar audio y video</li>
+                        <li class="fragment roll-in">Webkit: renderizado y display de páginas web</li>
+                        <li class="fragment roll-in">Open GL: para gráficos de alta performance</li>
+                        <li class="fragment roll-in">SQLite: maneja de tablas relacionales en memoria</li>
+                        <ul>
+					</section>
+
+
+
+					<section>
+					<section>
+						<h2>Android Runtime </h2>
+						<p>Permite la ejecución de aplicaciones Android (escribirlas tb)</p>
+                        <ul>
+                        <li class="fragment roll-in">Core Java Libraries</li>
+                        <li class="fragment roll-in">Dalvik Virtual Machine</li>
+                        <ul>
+					</section>
+					<section>
+						<h2>Core Java Libraries </h2>
+						<p>Típicamente escritas en lenguaje Java, provee un gran número de clases reutilizables</p>
+                        <ul>
+                        <li class="fragment roll-in">java classes básicas: java.*, javax.*</li>
+                        <li class="fragment roll-in">ciclo de vide del app: android.*</li>
+                        <li class="fragment roll-in">internet/servicios web: org.*</li>
+                        <li class="fragment roll-in">tests de unidad: junit.*</li>
+                        <ul>
+					</section>
+					<section>
+						<h2>Dalvik VM</h2>
+						<p>La app se ejecuta dentro de la DVM. Uno puede asumir que el código Java se compila, y se ejecuta en standard Java virtual machine, pero no es así.</p>
+                        <ul>
+                        <li class="fragment roll-in">escribe la aplicación en lenguaje Java</li>
+                        <li class="fragment roll-in">es compilado a un .class (bytecode standard)</li>
+                        <li class="fragment roll-in">una herramienta llamada DX transforma el bytecode Java, en un fichero ùnico con formato llamado <strong>DEX</strong></li>
+                        <li class="fragment roll-in">fichero DEX file es empaquetado con los resources de la app e instalado en dispositivo</li>
+                        <li class="fragment roll-in">el usuario ejecuta la app, la DVM entonces ejecuta las clases del DEX file</li>
+                        <ul>
+<p class="fragment current-visible"> Esto es así porque la DVM fué específicamente diseñada para ejecutarse en dispositivos de recursos reducidos: CPU mas lentas, menos memoria, batería limitada. 
+					</section>
+					</section>
+
+
+
+					<section>
+						<h2>Application Framework</h2>
+						<p>Software reusable que las aplicaciones móviles requieren.</p>
+                        <ul>
+                        <li class="fragment roll-in">Package Manager: base de aplicaciones instalada</li>
+                        <li class="fragment roll-in">Window Manager: se ocupa de gestionar ventanas de apps</li>
+                        <li class="fragment roll-in">View System: contiene componentes gráficos de la IU</li>
+                        <li class="fragment roll-in">Resource Manager: maneja recursos de las app - layouts, graficos, texto localizado</li>
+                        <li class="fragment roll-in">Activity Manager: se encarga de las Activities</li>
+                        <li class="fragment roll-in">Content Providers: base de datos que permite a las apps almacenar y compartir datos</li>
+                        <li class="fragment roll-in">Notification Manager: se encarga la barra de notificaciones (eventos desde las apps)</li>
+                        <ul>
+					</section>
+
+
+					<section>
+						<h2>Application Layer</h2>
+						<p>Aplicaciones estándar provistas en el móvil.</p>
+                        <ul>
+                        <li class="fragment roll-in">Home Screen</li>
+                        <li class="fragment roll-in">Phone Dialer</li>
+                        <li class="fragment roll-in">Web Browser</li>
+                        <li class="fragment roll-in">Email Reader</li>
+                        <li class="fragment roll-in">Contacs</li>
+                        <ul>
+					</section>
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
