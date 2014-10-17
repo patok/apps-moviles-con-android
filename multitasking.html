@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Desarrollo de Aplicaciones con Android - Seminario 2 (AUS)</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="Patricio Keilty">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+<style>
+.reveal section img {
+  border: none;
+}
+</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Apps móviles con Android</h1>
+					<h2>Seminario 2 - Analista Universitario en sistemas</h2>
+					<h4>6ta Semana</h4>
+					<p>
+						<small>Created by <a href="http://keilty.com.ar">Patricio Keilty</a> / <a href="http://twitter.com/patokeilty">@patokeilty</a></small>
+					</p>
+                    <p>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+                            <img alt="Licencia Creative Commons" style="border-width:0" src="img/cc-by-nc-sa-88x31.png" />
+                        </a>
+                    </p>
+				</section>
+
+				<section>
+					<h1>Multitasking</h1>
+					<h2></h2>
+					<p>Cuando se lanza una app, el sistema crea un hilo de ejecución para la app llamado <strong>main</strong>.<br/>
+Este hilo es muy importante debido a que:
+                        <ul>
+                        <li >despacha los eventos de la UI a diferentes widgets</li>
+			<li>incluidos los eventos de redraw</li>
+                        <li >el código de la app interactúa con los componentes de la UI (packages android.widget y android.view)</li>
+                        <li >suele denominarse tb <strong>UI thread</strong></li>
+                        </ul>				</section>
+
+				<section>
+					<h2>Multitasking (cont)</h2>
+<p>
+                        <ul>
+                        <li class="fragment highlight-red">El sistema no crea un hilo adicional para cada instancia de un componente.</li>
+                        <li class="fragment highlight-red">Todo componente del mismo proceso (mismo .apk) es instanciado/creado en el UI thread, y las llamadas del sistema son realizadas tb desde el mismo UI thread.</li>
+                        <li class="fragment highlight-red">En consecuencia, los métodos que responden a callbacks del sistema, ej. onClick(..), onKeyDown(..) para reportar acciones del usuario o el del ciclo de vida del mismo, siempre corren en el UI thread.</li>
+                        </ul>
+				</section>
+
+				<section>
+					<h2>Multitasking (cont)</h2>
+<p>
+                        <ul>
+                        <li class="fragment highlight-red">Cuando la app realiza trabajo intenso en respuesta a la interacción del usuario, esto modelo de hilo único puede ocasionar una pobre respuesta.</li>
+                        <li class="fragment highlight-red">O sea, si todo ocurre en el UI thread, operaciones largas y costosas en tiempo como acceso a la red o base de datos bloquean la UI.</li>
+                        <li class="fragment highlight-red">Cuando el hilo está bloqueado, los eventos no se pueden entregar (incluidos aquellos de renderizado de la UI). -> se torna irresponsiva (irresponsive)</li>
+                        <li class="fragment highlight-red">Incluso, si el UI thread está bloqueado por mas de 5 segs, se presenta un diálogo al usuario con el mensaje "La aplicación no está respondiendo: esperar? o cerrar?".</li>
+                        </ul>
+				</section>
+
+				<section>
+					<h2>Multitasking (cont)</h2>
+<p>En definitiva, hay 2 reglas de oro para el modelo single thread de UI de Android
+                        <ol>
+                        <li class="fragment grow">No bloquear el hilo principal (UI thread)</li>
+                        <li class="fragment grow">No acceder a los widgets de la UI fuera del hilo principal (UI thread)</li>
+                        </ol>
+				</section>
+
+				<section>
+					<h2>Hilos de trabajo</h2>
+<h3>Worker/Backgorund threads</h3>
+<p>Operaciones largas, de respuesta no-inmediata requieren entonces el uso de mas hilos de ejecución (worker/background).
+<br/>Pero que ocurre cuando se necesita interactuar con la UI ?? (está prohibido fuera del main thread!). Android provee algunas soluciones convenientes.
+
+                        <ul>
+                        <li class="fragment grow"><a href="http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)" >Activity.runOnUiThread(Runnable)</a></li>
+                        <li class="fragment grow"><a href="http://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable)" >View.post(Runnable)</a></li>
+                        <li class="fragment grow"><a href="http://developer.android.com/reference/android/view/View.html#postDelayed(java.lang.Runnable, long)" >View.postDelayed(Runnable, long)</a></li>
+                        </ul>
+				</section>
+
+
+				<section>
+					<h2>Hilos de trabajo</h2>
+<h3>AsyncTask</h3>
+<p>Cuando el empleo de los métodos anteriores se torna complicado o tiene inconvenientes
+<br/>Android provee <strong>AsyncTask</strong>
+<p>AsyncTask permite ejecutar tareas de forma asíncrona (en background) e interactuar con la UI. Las operaciones bloqueantes se realizan en un hilo de trabajo, y el resultado se puede recuperar en el hilo principal, con la ventaja de no tener que manipular los hilos explícitamente.
+				</section>
+
+				<section>
+<h2>AsyncTask</h2>
+                        <ul>
+                        <li class="fragment fade-in">se puede especificar los parámetros, el valor de progreso, el valor de retorno de la tarea, usando generics android.os.AsyncTask&lt;Params, Progress, Result&gt;</li>
+                        <li class="fragment fade-in">método <a href="http://developer.android.com/reference/android/os/AsyncTask.html#doInBackground(Params...)" >doInBackground(..)</a> se ejecuta automáticamente en un hilo en segundo plano</li>
+                        <li class="fragment fade-in"><a href="http://developer.android.com/reference/android/os/AsyncTask.html#onPreExecute()" >onPreExecute()</a>, <a href="http://developer.android.com/reference/android/os/AsyncTask.html#onPostExecute(Result)" >onPostExecute(Result)</a>, y <a href="http://developer.android.com/reference/android/os/AsyncTask.html#onProgressUpdate(Progress...)" >onProgressUpdate(Progress)</a> son todos invocados desde el UI thread</li>
+                        <li class="fragment fade-in">el retorno de doInBackground(..) es enviado a onPostExecute(Result)</li>
+                        <li class="fragment fade-in">se puede invocar publishProgress() en cualquier momento desde doInBackground() para que se ejecute onProgressUpdate() en el hilo principal</li>
+                        </ul>
+				</section>
+
+				<section>
+					<h2>AsyncTask</h2>
+<h3>Implementando ...</h3>
+
+<p><pre><code data-trim>
+private class DownloadImageTask extends AsyncTask&lt;String, Void, Bitmap&gt; {
+
+  /**
+   * The system calls this to perform work in a worker thread and delivers
+   * it the parameters given to AsyncTask.execute()
+   */
+
+  protected Bitmap doInBackground(String... urls) {
+    return loadImageFromNetwork(urls[0]);
+  }
+
+  /**
+   * The system calls this to perform work in the UI thread and delivers
+   * the result from doInBackground()
+   */
+
+  protected void onPostExecute(Bitmap result) {
+    mImageView.setImageBitmap(result);
+  }
+}
+</code></pre></p>
+				</section>
+
+				<section>
+					<h2>Handler</h2>
+<h3></h3>
+<p>Tal como AsyncTask, la clase <strong>Handler</strong> está diseñada para intercambiar tareas entre distintos hilos, pero este es mucho mas flexible dado que se puede utilizar entre cuales quiera hiloas, y no sólo entre UI thread y un worker thread.
+				</section>
+				<section>
+					<h2>Handler</h2>
+<h3>Arquitectura de Handler</h3>
+<br/>Un <strong>Handler</strong> esta asociada con un hilo específico, entonces cualquier hilo puede enviar trabajo a otro enviando <strong>Message</strong>s o posteando <strong>Runnable</strong>s al handler asociado con el hilo particular.
+<p>
+<img title="local" src="img/android_threading.png" >
+				</section>
+			
+
+
+				<section>
+<h2>Runnables y Handlers</h2>
+                        <ul>
+                        <li class="fragment fade-in">boolean post(Runnable r)<p>agregar Runnable a la MessageQueue</li>
+                        <li class="fragment fade-in">boolean postAtTime(Runnable r, long uptimeMillis)<p>idem pero temporizado</li>
+                        <li class="fragment fade-in">boolean postDelayed(Runnable r, long delayMillis)<p>idem pero con delay</li>
+                        </ul>
+				</section>
+
+
+
+				<section>
+<h2>Messages y Handlers</h2>
+                        <ul>
+                        <li class="fragment fade-in">sendMessage()<p>encola mensaje</li>
+                        <li class="fragment fade-in">sendMessageAtFrontOfQueue()<p>inserta mensaje al ppio de la cola</li>
+                        <li class="fragment fade-in">sendMessageAtTime()<p>encola el mensaje a la hora especificada</li>
+                        <li class="fragment fade-in">sendMessageDelayed()<p>encola el mensaje luego de un delay</li>
+                        </ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
