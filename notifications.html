@@ -248,6 +248,67 @@ notificationManager.cancelAll();
 				</section>
 
 
+                <section>
+                    <h2>BroadcastReceiver</h2>
+			<p>Es un componente básico de una aplicación Android.
+<p>El sistema emite notificaciones de eventos (Intents) a todos los receivers registrados.<br/>
+Típicamente el workflow para los broadcasts es el siguiente:
+                        <ul>
+                        <li class="fragment roll-in" >registrarse para recibir Intents</li>
+                        <li class="fragment roll-in" >algún componente o app transmite el Intent (<strong>sendBroadcast(...)</strong>)</li>
+                        <li class="fragment roll-in" >el sistema entrega el Intent a los diferentes broadcast receivers suscriptos a ese tipo de Intent</li>
+                        <li class="fragment roll-in" >cada receptor(receiver) reciben un llamado a método <strong>onReceive(..)</strong></li>
+                        </ul>
+                </section>
+
+                <section>
+                    <h3>BroadcastReceiver - registrándose</h3>
+			<p>
+                        <ul>
+<li class="fragment roll-in" >estática: en el Manifest.xml
+<p><pre><code data-trim>
+&lt;receiver
+    android:name=".ReceiverTest" &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name="android.provider.Telephony.SMS_RECEIVED" &gt;
+        &lt;/action&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+</code></pre></p>
+</li>
+<li class="fragment roll-in" >dinámica: por código, método <strong>registerReceiver()</strong>
+<p><pre><code data-trim>
+mBroadcastMgr = LocalBroadcastManager
+		.getInstance(getApplicationContext());
+mBroadcastMgr.registerReceiver(receiver, intentFilter);
+
+...
+
+mBroadcastMgr.unregisterReceiver(receiver);
+</code></pre></p>
+</li>
+                        </ul>
+                </section>
+
+
+                <section>
+                    <h3>BroadcastReceiver - implementación</h3>
+			<p>Proveer una clase que extienda BroadcastReceiver, y redefina <strong>onReceive(..)</strong>
+<p><pre><code data-trim>
+public class ReceiverTest extends BroadcastReceiver {
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		  Log.d("RECEIVER", "Intent recibido");
+		  ...
+	}
+
+}
+</code></pre></p>
+
+                </section>
+
+
 			</div>
 
 		</div>
