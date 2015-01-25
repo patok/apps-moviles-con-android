@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Probando</string>
+    <string name="hello_world">This is an activity within same package/app.</string>
+    <string name="label_explicit">Explicit</string>
+    <string name="label_implicit">Implicit</string>
+    <string name="title_activity_extra">ExtraActivity</string>
+
+</resources>
