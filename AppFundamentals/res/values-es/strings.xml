@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AppFundamentals</string>
+    <string name="action_settings">Configuración</string>
+    <string name="legend">Ingrese número telefónico ?</string>
+    <string name="button_label">Llamar</string>
+</resources>
