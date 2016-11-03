@@ -59,26 +59,40 @@
 				<section>
 					<h1>Interfaz de Usuario (UI)</h1>
 					<h2>View y ViewGroup</h2>
-					<p>Todos los elementos de la interface de usuario de una app se construyen utilizando <strong>View</strong> y <strong>ViewGroup</strong>.
-					<br/>Una View es un objeto que dibuja algo en la pantalla y que permite al usuario interactuar con él. Un ViewGroup es un objecto que contiene otros objeto Views (u otros ViewGroup) y define la disposición de la interface.
-
+					<p class="fragment roll-in">Todos los elementos de la interface de usuario de una app se construyen utilizando alguna combinación de <strong>View</strong>s y <strong>ViewGroup</strong>s.
+					<p class="fragment roll-in">Una <strong><a href="https://developer.android.com/reference/android/view/View.html" >View</a></strong> se representa como un rectángulo en pantalla y es responsable de dibujarse/renderizarse y capturar eventos producidos x el usuario interactuando con ella. <p class="fragment roll-in">Un <strong><a href="https://developer.android.com/reference/android/view/ViewGroup.html" >ViewGroup</a></strong> es un objecto contenedor de otros objeto Views (o ViewGroup) y define la estructura interna o layout de la interface, típicamente los layouts.
 				</section>
+
 				<section>
-						<h2>UI Layout</h2>
-						<h3></h3>
+					<h1>Interfaz de Usuario (UI)</h1>
+					<h2>View - componentes básicos</h2>
+<ul>
+	<li class="fragment roll-in">campos texto</li>
+	<li class="fragment roll-in">botones</li>
+	<li class="fragment roll-in">spinners/dropdowns</li>
+	<li class="fragment roll-in">check/radio/switch buttons</li>
+	<li class="fragment roll-in">date/time pickers</li>
+	<li class="fragment roll-in">menúes</li>
+	<li class="fragment roll-in">diálogos</li>
+	<li class="fragment roll-in"><a href="https://material.google.com/components/buttons.html">mas ...</a></li>
+</ul>
+				</section>
+				
+				<section>
+					<h1>Interfaz de Usuario (UI)</h1>
+					<h2>Jerarquía de Views</h2>
 			<img title="local" src="img/viewgroup.png">
-						</p>Usando una jerarquía de objetos View y ViewGroup se construye la interface. Cada grupo de views es un contenedor invisible que organiza las view subyacentes o hijas, las cuales pueden ser controles de entrada u otro tipo de componentes que dibujan alguna parte de la interface.
+						</p>Usando una jerarquía de objetos View y ViewGroup se construye la interface.
 				</section>
 
-
 				<section>
-						<h3>UI Layout</h3>
-		<p>Android provee una colección de subclases View y ViewGroup que constituyen los controles de entrada (botones, campos de edición, etc) y varios modelos de disposiciones o layouts (LinearLayout, RelativeLayout).<p>Para definir el layout típicamente se utiliza XML:
+						<h2>ViewGroups : Layouts</h2>
+		<p>Android provee una colección de subclases de ViewGroup que constituyen los layouts (LinearLayout, RelativeLayout, GridLayout).<p>Para definir el layout típicamente se utiliza XML:
 
 <pre><code data-trim>
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent" 
+              android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical" &gt;
     &lt;TextView android:id="@+id/text"
@@ -94,20 +108,87 @@
 
 				</section>
 
+				<!-- Layouts / attrs -->
 				<section>
-						<h3>Views: operaciones</h3>
+						<h2>ViewGroups : Layouts (cont)</h2>
 		<p>
-<ul>
-	<li class="fragment roll-in">setear VISIBILITY: si está visible o no?</li>
-	<li class="fragment roll-in">setear estado checked</li>
-	<li class="fragment roll-in">definir Listeners: código para manejar eventos sobre la vista (OnClick, OnFocusChanged, etc)</li>
-	<li class="fragment roll-in">setear propiedades: opacidad, background, rotación</li>
-	<li class="fragment roll-in">gestionar foco</li>
-</ul>
+
+<div style="display: block">
+	<div style="display: inline; padding: 40px;  border: none;" class="fragment roll-in"><img src="img/frame-layout.png" style=" border: none;"></div><div style="display: inline; padding: 40px;  border: none;" class="fragment roll-in"><img src="img/linear-layout.png" style=" border: none;"></div>
+</div>
+<div style="display: block">
+	<div style="display: inline; padding: 40px; border: none;" class="fragment roll-in"><img src="img/relative-layout.png" style=" border: none;"></div><div style="display: inline; padding: 40px; border: none;" class="fragment roll-in"><img src="img/grid-layout.png" style=" border: none;"></div>
+</div>
+				</section>
+
+				<section>
+						<h2>Views: jerarquía y attributos</h2>
+						<h3>width y height</h3>
+		<p>
+		
+<div style="display: block">
+	<div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">width=wrap_content / eight=wrap_content</p><img src="img/width-eight-1.png" style=" border: none;"></div><div style="display: inline; padding: 40px;  border: none;" class=""><p style="font-size: 16px;">width=match_parent / eight=wrap_content</p><img src="img/width-eight-2.png" style=" border: none;"></div>
+</div>
 
 				</section>
-<!-- ejemplos de View y ViewGroups -->
+				
 				<section>
+						<h2>Views: jerarquía y attributos</h2>
+						<h3>width y height (cont)</h3>
+		<p>
+		
+<div style="display: block">
+	<div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">width=wrap_content / eight=match_parent</p><img src="img/width-eight-3.png" style=" border: none;"></div><div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">width=match_parent / eight=match_parent</p><img src="img/width-eight-4.png" style=" border: none;"></div>
+</div>		
+
+				</section>
+				
+
+
+				<section>
+						<h2>Views: jerarquía y attributos</h2>
+						<h3>gravity vs. layout_gravity</h3>
+		<p>
+		
+<div style="display: block">
+	<div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">gravity=center</p><img src="img/center-3.png" style=" border: none;"></div><div style="display: inline; padding: 40px;  border: none;" class=""><p style="font-size: 16px;">layout_gravity=center</p><img src="img/center-2.png" style=" border: none;"></div>
+</div>
+
+				</section>
+
+
+				<section>
+						<h2>Views: jerarquía y attributos</h2>
+						<h3>padding vs. margin</h3>
+		<p>
+		
+<div style="display: block">
+	<div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">padding=X</p><img src="img/padding-2.png" style=" border: none;"></div><div style="display: inline; padding: 40px;  border: none;" class=""><p style="font-size: 16px;">layout_margin=X</p><img src="img/marging.png" style=" border: none;"></div>
+</div>
+
+				</section>
+
+
+				
+				<section>
+					<h2>Views: jerarquía y attributos</h2>
+					<h3>visibility</h3>
+<ul>
+	<li class="fragment roll-in">visible</li>
+	<li class="fragment roll-in">invisible</li>
+	<li class="fragment roll-in">gone</li>
+</ul>
+				</section>
+				
+				
+				
+				
+				
+				
+
+				
+<!-- ejemplos de View y ViewGroups -->
+				<!--section>
 						<h3>Views: componentes ejemplos</h3>
 		<p>
 <ul>
@@ -118,29 +199,18 @@
 <p>&nbsp;
 <p class="fragment roll-in">siempre es posible extender las clases de View para proveer tu propio elemento (ver <a href="http://developer.android.com/guide/topics/ui/custom-components.html">custom components</a>)</p>
 
+
+				</section-->
+
 <!-- en samples de DemoAPI: Button1.java/buttons_1.xml, Control1.java/controls_1.xml, AutoComplete1.java/autocomplete_1.xml, -->
 
-				</section>
-<!-- AdapterViews -->
+				<!-- AdapterViews -->
                 <section>
                     <h2>AdapterView y Adapter</h2>
 			<p>Hay componentes diseñados específicamente para mostrar distintos tipos de datos según la necesidad del desarrollador, son distintas subclases de un ViewGroup de nombre <strong>AdapterView</strong>, ej. ListView, Spinner.<br/>Las vistas hijas y sus datos respectivos son gestionados por la View sino por otra clase llamada un <strong>Adapter</strong>, ej.: ListAdapter, SpinnerAdapter y  ArrayAdapter</p>
                 </section>
 
 
-<!-- Layouts / attrs -->
-
-				<section>
-						<h3>Layouts</h3>
-		<p>Distintos tipos de Layouts proveen distintas estrategias para armado de la interface visual: LinearLayout, FrameLayout, RelativeLayout.<p class="fragment roll-in">Todos incorporan parametrización común. Los mas importantes son los relativos a las dimensiones: <strong>android:layout_width</strong> and <strong>android:layout_height</strong>, para cada dimensión se puede especificar:
-
-<ul>
-	<li class="fragment roll-in">MATCH_PARENT - la vista trata de agrandarse tanto como el padre lo permita</li>
-	<li class="fragment roll-in">WRAP_CONTENT - la vista adquiere el tamaño suficiente para su contenido</li>
-	<li class="fragment roll-in">número exacto -  ej. 140 dip (density independent pixel)</li>
-</ul>
-<p class="fragment roll-in">
-				</section>
 
 <!-- Dialog/Toast -->
 
@@ -151,7 +221,10 @@
                 <section>
                     <h2>Hierarchy Viewer</h2>
 			<p>Una herramienta muy conveniente para analizar la jerarquía de Views de una app (viene con el SDK)</p>
-                </section>
+
+
+
+			</section>
 
 
 
