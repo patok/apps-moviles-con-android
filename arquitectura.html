@@ -73,19 +73,30 @@
 </ul>
 
 				</section>
-				<section>
-						<h2>La arquitectura de Android</h2>
-		<p>
-		<div class="" style="position: absolute; z-index: 0;">
-			<img style="" src="img/android_architecture.png">
+				<section data-state="dot-animate" id="reset">
+						<h4>La arquitectura de Android</h4>
+	<div style="width:50%;margin:auto;">	
+		<div class="" style="width: 100%;">
+			<img id="apps-layer" src="img/android-arch-apps-layer.png" style="margin: 0;">
 		</div>
-		<!--div class="fragment current-visible sl-block-content" style="position: absolute; z-index: -1;">
-			<img style="visibility: visible;" src="img/android_architecture_1.png">
-		</div-->
-
-<!-- TODO complete! -->
-
-		</p>
+		<div class="" style="width: 100%;">
+			<img id="api-layer" src="img/android-arch-api-layer.png" style="margin: 0;">
+		</div>
+		<div class="" style="width: 100%;">
+			<div class="" style="display:inline-block;width: 69%;">
+				<img id="c-layer" src="img/android-arch-C-layer.png" style="margin: 0;">
+			</div>
+			<div class="" style="display:inline-block;width: 29%;">
+				<img id="rt-layer" src="img/android-arch-RT-layer.png" style="margin: 0;">
+			</div>
+		</div>
+		<div class="" style="width: 100%;">
+			<img id="hal-layer" src="img/android-arch-HAL-layer.png" style="margin: 0;">
+		</div>
+		<div class="" style="width: 100%;">
+			<img id="linux-layer" src="img/android-arch-linux-layer.png" style="margin: 0;">
+		</div>
+	</div>
 				</section>
 
 				<section>
@@ -229,6 +240,101 @@
 					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
 			});
+
+			var animations = Array();
+			
+			function reset_animations() {
+				animations.forEach(function (animation,i,args){
+					animation.cancel();
+				});
+			};
+			
+			Reveal.addEventListener( 'dot-animate', function() {
+				document.getElementById('apps-layer').addEventListener('click', function () {
+					reset_animations();
+					animation = this.animate([
+						{ transform: 'scale(1)'},
+						{ transform: 'scale(3)'}],
+						{ duration: 700,
+						  iterations:1,
+						  direction: 'normal',
+						  fill: 'forwards',
+						  delay: 5,
+						  easing: 'ease-in'});
+					animations.push(animation);
+				});
+				document.getElementById('api-layer').addEventListener('click', function () {
+					reset_animations();
+					animation = this.animate([
+						{ transform: 'scale(1)'},
+						{ transform: 'scale(3)'}],
+						{ duration: 700,
+						  iterations:1,
+						  direction: 'normal',
+						  fill: 'forwards',
+						  delay: 5,
+						  easing: 'ease-in'});
+					animations.push(animation);
+				});				
+				document.getElementById('c-layer').addEventListener('click', function () {
+					reset_animations();
+					animation = this.animate([
+						{ transform: 'scale(1)'},
+						{ transform: 'scale(3)'}],
+						{ duration: 700,
+						  iterations:1,
+						  direction: 'normal',
+						  fill: 'forwards',
+						  delay: 5,
+						  easing: 'ease-in'});
+					animations.push(animation);
+				});
+				document.getElementById('rt-layer').addEventListener('click', function () {
+					reset_animations();
+					animation = this.animate([
+						{ transform: 'scale(1)'},
+						{ transform: 'scale(3)'}],
+						{ duration: 700,
+						  iterations:1,
+						  direction: 'normal',
+						  fill: 'forwards',
+						  delay: 5,
+						  easing: 'ease-in'});
+					animations.push(animation);
+				});
+				document.getElementById('hal-layer').addEventListener('click', function () {
+					reset_animations();
+					animation = this.animate([
+						{ transform: 'scale(1)'},
+						{ transform: 'scale(3)'}],
+						{ duration: 700,
+						  iterations:1,
+						  direction: 'normal',
+						  fill: 'forwards',
+						  delay: 5,
+						  easing: 'ease-in'});
+					animations.push(animation);
+				});
+				document.getElementById('linux-layer').addEventListener('click', function () {
+					reset_animations();
+					animation = this.animate([
+						{ transform: 'scale(1)', position: 'absolute', top: '200px', left: '200px'},
+						{ transform: 'scale(1.2)', position: 'absolute', top:'70px', left: '50px'}],
+						{ duration: 700,
+						  iterations:1,
+						  direction: 'normal',
+						  fill: 'forwards',
+						  delay: 5,
+						  easing: 'ease-in'});
+					animations.push(animation);
+				});
+				document.getElementById('reset').addEventListener('click', function (e){
+					if (e.target !== this)
+						return;
+					
+					reset_animations();
+				});
+			}, false );
 
 		</script>
 
