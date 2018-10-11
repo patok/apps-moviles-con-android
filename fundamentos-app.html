@@ -58,17 +58,16 @@
 
 				<section>
 					<h2>Fundamento de Aplicaciones</h2>
-					<p>Bloques fundamentales para la construcción de aplicaciones
+					<p>Componentes fundamentales de una applicación
 					<ul>
-						<li class="fragment roll-in">Activities (parte de la UI)</li>
-						<li class="fragment roll-in">Services (ejecución de procesos en background)</li>
-						<li class="fragment roll-in">BroadcastReceivers (eventos en dispositivo)</li>
-						<li class="fragment roll-in">ContentProvides (almacenamiento de datos)</li>
+						<li class="fragment roll-in">Activity (lógica de interacción con la UI, subclase de <a href="https://developer.android.com/reference/android/app/Activity"><em>Activity.class</em></a>)</li>
+						<li class="fragment roll-in">Services (ejecución de procesos/tareas en background - <a href="https://developer.android.com/reference/android/app/Service"><em>Service.class</em></a>)</li>
+						<li class="fragment roll-in">BroadcastReceivers (subscribe a notificaciones de eventos del SO - <em><a href="https://developer.android.com/reference/android/content/BroadcastReceiver" >BroadcastReceiver.class</a></em>)</li>
+						<li class="fragment roll-in"><em><a href="https://developer.android.com/reference/android/content/ContentProvider">ContentProvider</a></em> ( junto a ContentResolver, se usa para compartir datos entre procesos: query(), insert(), update(), delete())</li>
 					</ul>
 					</p>
 
 				</section>
-
 				<section>
 						<h2>Componentes de una aplicación</h2>
 						<h3>Activity class</h3>
@@ -98,37 +97,50 @@
 				</section>
 
 				<section>
-					<section>
-					<h3>Broadcast Receiver</h3>
-						<p>escucha y responde ante eventos del sistema
-                    <ul>
-                        <li  class="fragment roll-in">eventos <-> Android Intents</li>
-                        <li  class="fragment roll-in">Publishers entonces crean un Intent y lo transmiten (broadcast)</li>
-                        <li  class="fragment roll-in">esos Intents son encaminados a los respectivos receptores, que han subscripto para recibir ese tipo de eventos.</li>
-                    </ul>
-			<p class="fragment roll-in">ejemplo típico: SMS app, tiene una parte que es un Broadcast Receiver, y al recibir un evento de llegada de SMS, se dispara un servicio para descargar y almacenar el sms.  
+				<h3>Broadcast Receiver</h3>
+					<p>escucha y responde ante eventos del sistema
+				<ul>
+					<li  class="fragment roll-in">eventos <-> Android Intents</li>
+					<li  class="fragment roll-in">Publishers entonces crean un Intent y lo transmiten (broadcast)</li>
+					<li  class="fragment roll-in">esos Intents son encaminados a los respectivos receptores, que han subscripto para recibir ese tipo de eventos.</li>
+				</ul>
+		<p class="fragment roll-in">ejemplo típico: SMS app, tiene una parte que es un Broadcast Receiver, y al recibir un evento de llegada de SMS, se dispara un servicio para descargar y almacenar el sms.  
 
-					</section>
-					<section>
-						<h3>Content Provider</h3>
-						<p>Permite a una app almacenar y compartir datos</p>
-                    <ul>
-                        <li  class="fragment roll-in">usan una interface estilo base de datos</li>
-                        <li  class="fragment roll-in">pero se encargan de mucho mas, como manejar los detalles de la comunicación entre procesos</li>
-                    </ul>
-			<p class="fragment roll-in">el navegador es un ejemplo de Content Provider, porque almacena los sitios favoritos (bookmarks) de usuario y permite acceder y compartir estos datos desde otras apps.
-					</section>
+				</section>
+
+				<section>
+					<h3>Content Provider</h3>
+					<p>Permite a una app almacenar y compartir datos</p>
+				<ul>
+					<li  class="fragment roll-in">usan una interface estilo base de datos</li>
+					<li  class="fragment roll-in">pero se encargan de mucho mas, como manejar los detalles de la comunicación entre procesos</li>
+				</ul>
+		<p class="fragment roll-in">el navegador es un ejemplo de Content Provider, porque almacena los sitios favoritos (bookmarks) de usuario y permite acceder y compartir estos datos desde otras apps.
+				</section>
+
+				<section>
+					<h3>Otros componentes de una App</h3>
+					<ul>
+						<li class="fragment roll-in">Views (vista) - jeraquía de clases que representa un elemento de la UI<a href="https://developer.android.com/reference/android/view/View"><em>View.class</em></a>)</li>
+						<li class="fragment roll-in">Layouts (clase de Views que contienen otras Views y se ocupan del formato y apariencia de las mismas)<a href="https://developer.android.com/reference/android/widget/LinearLayout"><em>LinearLayout.class</em></a></li>
+						<li class="fragment roll-in">Fragments - representa una porción de la UI en una Activity. <em><a href="https://developer.android.com/guide/components/fragments" >Guía de fragmentos</a></em></li>
+						<li class="fragment roll-in">Intents - eventos del sistema<em><a href="https://developer.android.com/reference/android/content/Intent">Intent.class</a></em></li>
+						<li class="fragment roll-in">Recursos - elementos externos a la app: imágenes, textos, constantes; resuelven en runtime. <em><a href="https://developer.android.com/guide/topics/resources/providing-resources">guía de recursos</a></em></li>
+						<li class="fragment roll-in">Manifest.xml - definición de la app <em><a href="https://developer.android.com/guide/topics/manifest/manifest-intro">Manifest.xml</a></em></li>
+					</ul>
+					</p>
+
 				</section>
 
 
-					<section>
-						<h3>App ejemplo: NumberDialer</h3>
-						<p>esta aplicación involucra 2 Activities</p>
-					</section>
+				<section>
+					<h3>App ejemplo: NumberDialer</h3>
+					<p>esta aplicación involucra 2 Activities</p>
+				</section>
 
 
 
-					<section>
+				<section>
 					<section>
 						<h2>Construyendo una App</h2>
 						<p>
@@ -190,8 +202,6 @@
 						<p>Se puede especificar un layout diferente basado en: orientación, tamaño screen, etc</p>
 					</section>
 
-
-
 					<section>
 						<h3>R</h3>
 						<p>R.java</p>
@@ -200,7 +210,6 @@
                         <li class="fragment roll-in">Java usa las referencias en R.java para acceder a los recursos</li>
                         <ul>
 					</section>
-
 
 					<section>
 						<h2>Implementar clases de la app</h2>
