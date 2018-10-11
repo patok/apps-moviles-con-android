@@ -62,8 +62,56 @@
                     </p>
 				</section>
 
+                
+                <section>
+					<h1>Procesos en Android</h1>
+					<h2></h2>
+					<p>Las apps en Android se ejecutan en lo que se conoce como <strong>sandbox</strong>(arenero). El sandbox es la combinación de :
+                        <ul>
+			            <li class="fragment highlight-red">proceso único: cada app corre en un proceso individual y distinto,</li>
+                        <li class="fragment highlight-red">indentidad única: cada app es asignada un uid único (al instalarse),</li>
+                        <li class="fragment highlight-red">y sistema de archivo específico: los recursos de la app son almacenados en un directorio único por app (/data/data/&lt;package_app_name&gt;).</li>
+                        </ul><br/>
+                </section>
+
+                <section>
+					<h1>Procesos en Android (cont.)</h1>
+					<h2>El prácticamente único UID</h2>
+					<p>El userid puede ser de hecho <strong>compartido</strong> entre distintos procesos.<br/>
+
+<p><pre><code data-trim>
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="ar.edu.ips.aus.android.multitask.single_thread"
+        android:sharedUserId="ips.android.sharedId"&gt;
+    &lt;application&gt;
+    ...
+    &lt;/application&gt;
+&lt;/manifest&gt;
+</code></pre></p>
+nota: las apps deben ser firmadas con mismo certificado!
+                </section>
+
+
+                <section>
+					<h1>Procesos en Android (cont.)</h1>
+					<h2>Proceso compartido</h2>
+					<p>Permite que ambas aplicaciones se corran bajo el mismo proceso.<br/>
+
+<p><pre><code data-trim>
+&lt;manifest xmlns:android=http://schemas.android.com/apk/res/android
+        package="ar.edu.ips.aus.android.multitask.single_thread"
+        android:sharedUserId="ips.android.sharedId"&gt;
+    &lt;application
+            android:process = "ips.android.sharedProcess"&gt;
+            ...
+    &lt;/application&gt;
+&lt;/manifest&gt;
+</code></pre></p>
+nota: las apps deben compartir mismo uid!
+                </section>
+
 				<section>
-					<h1>Multitasking</h1>
+					<h1>Multitasking- hilo principal</h1>
 					<h2></h2>
 					<p>Cuando se lanza una app, el sistema crea un hilo de ejecución para la app llamado <strong>main</strong>.<br/>
 Este hilo es muy importante debido a que:
