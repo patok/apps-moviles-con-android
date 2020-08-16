@@ -1,39 +1,32 @@
 <!doctype html>
-<html lang="en">
-
+<html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<title>Desarrollo de Aplicaciones con Android - Seminario 2 (AUS)</title>
 
-		<meta name="description" content="">
-		<meta name="author" content="Patricio Keilty">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
-
-		<!-- For syntax highlighting -->
+		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<!-- Printing and PDF exports -->
 		<script>
-			if( window.location.search.match( /print-pdf/gi ) ) {
-				var link = document.createElement( 'link' );
-				link.rel = 'stylesheet';
-				link.type = 'text/css';
-				link.href = 'css/print/pdf.css';
-				document.getElementsByTagName( 'head' )[0].appendChild( link );
-			}
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
-
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
+		<style>
+				.scrollable {
+					bottom: 0px;
+					overflow-y: auto  !important;
+					overflow-x: hidden !important;
+				}
+		</style>
 	</head>
 
 	<body>
@@ -228,6 +221,346 @@
 
 
 
+<section class="scrollable">
+	<h2>Diseñando UI para múltiples pantallas</h2>
+	<h3>Provision de Recursos Alternativos</h3>
+	<note>ver <a href="https://developer.android.com/guide/topics/resources/providing-resources#AlternativeResources" >Android Dev docs: App resources</a></note>
+	<p>A través del manejador de recursos (ResourceManager), la plataforma permite la provisión de <strong>recursos alternativos</strong>
+		para distintos tipos de dispositivos. Por ej, utilizar distintos elementos de diseño para densidades y tamaños de pantallas variadas;
+		textos alternativos en idiomas distintos;  </p>
+</section>
+<section class="scrollable">
+	<h3>Provision de Recursos Alternativos (cont.)</h3>
+		<p>
+		En tiempo de ejecución Android detecta la configuración del dispositivo actual y carga los recursos adecuados definidos en la aplicación.
+		O sea, dentro del APK los recursos alternativos se especifican:
+
+		<ul>
+			<li class="fragment roll-in">
+				directorio /res: nuevo directorio de la forma: 
+				&lt;resources_name&gt;-&lt;config_qualifier&gt; (ver tablas 1 c/ directorios y tabla 2 - calificadores)
+			</li>
+			<li class="fragment roll-in" >
+				Guardar el archivo de recursos con el mismo nombre que el archivo de recursos pre-determinados.
+			</li>
+		</ul>
+
+		por ejemplo:
+		<pre>
+res/
+    drawable/   
+        icon.png
+        background.png    
+    drawable-hdpi/  
+        icon.png
+        background.png 
+		</pre>
+	</p>
+</section>
+<section  class="scrollable">
+		<h3>Provision de Recursos Alternativos - tabla 1 directorios</h3>
+		
+	<p>
+		<table>
+			<tbody>
+			<tr>
+			  <th scope="col">Directorio</th>
+			  <th scope="col">Tipo de recurso</th>
+			</tr>
+		  
+			<tr>
+			  <td><code><span>anim/</span></code></td>
+		   <td>Archivos XML que definen <a href="https://developer.android.com/guide/topics/graphics/view-animation.html#tween-animation">animaciones de interpolación
+		  de movimiento</a> y propiedades.</td>
+			</tr>
+		  
+			<tr>
+			  <td><code><span>color/</span></code></td>
+		   <td>Archivos XML que definen una <a href="https://developer.android.com/guide/topics/resources/color-list-resource.html">lista de estados de colores</a></td></tr>
+		  
+			<tr>
+			  <td><code><span>drawable/</span></code></td>
+		  
+			  <td><p>Archivos de mapas de bits (<code>.png</code>, <code>.9.png</code>, <code>.jpg</code>, <code>.gif</code>) o archivos&nbsp;XML con otros <a href="https://developer.android.com/guide/topics/resources/drawable-resource.html">subtipos de recursos de elemento de diseño</a>.</p>
+			  </td>
+			</tr>
+	  
+			<tr>
+			  <td><code><span>layout/</span></code></td>
+			  <td>Archivos <a href="https://developer.android.com/guide/topics/resources/layout-resource.html">XML con el diseño de una interfaz de usuario</a>.</td>
+			</tr>
+		  
+			<tr>
+			  <td><code><span>menu/</span></code></td>
+			  <td>XML definición de <a href="https://developer.android.com/guide/topics/resources/menu-resource.html">menús de aplicaciones</a>.</td>
+			</tr>
+		  
+			<tr>
+			  <td><code><span>raw/</span></code></td>
+			  <td><p>Archivos arbitrarios de <a href="https://developer.android.com/reference/android/content/res/Resources.html#openRawResource(int)">recursos sin procesar</a>.</p>
+				</td>
+			</tr>
+		  
+			<tr>
+			  <td><code><span>values/</span></code></td>
+			  <td><p>Archivos XML que contienen valores simples, como strings, valor enteros y colores. Por ejemplo, a continuación se incluyen algunas convenciones
+		  de asignación de nombres de archivos para los recursos que puedes crear en este directorio:</p>
+				<ul>
+				  <li>arrays.xml para arreglos de recursos (<a href="https://developer.android.com/guide/topics/resources/more-resources.html#TypedArray">arreglos escritos</a>).</li>
+				  <li>colors.xml para <a href="https://developer.android.com/guide/topics/resources/more-resources.html#Color">valores de color</a>.</li>
+				  <li>dimens.xml para <a href="https://developer.android.com/guide/topics/resources/more-resources.html#Dimension">valores de dimensión</a>.</li>
+				  <li>strings.xml para <a href="https://developer.android.com/guide/topics/resources/string-resource.html">valores
+		  de strings</a>.</li>
+				  <li>styles.xml para <a href="https://developer.android.com/guide/topics/resources/style-resource.html">estilos</a>.</li>
+				</ul>
+			  </td>
+			</tr>
+		  
+			<tr>
+			  <td><code><span>xml/</span></code></td>
+			  <td>XML arbitrarios<code></td>
+			</tr>
+		  </tbody></table>
+	</p>
+</section>
+
+<section  class="scrollable">
+		<h3>Provision de Recursos Alternativos - tabla 1 directorios</h3>
+
+		<table>
+				<tbody><tr>
+					<th>Configuración</th>
+					<th>Descripción</th>
+				</tr>
+				<tr id="MccQualifier">
+				  <td>MCC y MNC</td>
+				  <td>
+					<p>El código de país de móvil (MCC), opcionalmente seguido del código de red móvil (MNC)
+			 de la tarjeta SIM del dispositivo. Por ejemplo, <code>mcc310</code> se refiere a los Estados Unidos con cualquier operador,
+			 <code>mcc310-mnc004</code> se refiere a los Estados Unidos con Verizon, y <code>mcc208-mnc00</code> se refiere a Francia con
+			 Orange.</p>
+
+				  </td>
+				</tr>
+				<tr id="LocaleQualifier">
+				  <td>Idioma y región</td>
+				  <td><p>El idioma se define mediante un código de idioma de 2 letras, opcionalmente seguido de un código de región<br><br>
+
+						Ejemplos:<br>
+						<code><span>en</span></code><br>
+						<code><span>fr</span></code><br>
+						<code><span>en-rUS</span></code><br>
+						<code><span>fr-rFR</span></code><br>
+						<code><span>fr-rCA</span></code><br>
+				  </td>
+				</tr>
+				<tr id="LayoutDirectionQualifier">
+				  <td>Dirección del diseño</td>
+				  <td><p>Dirección del diseño de tu aplicación.<br><code>ldrtl</code>: significa “dirección del diseño de derecha a izquierda”.<br>
+				  <code>ldltr</code>: significa “dirección del diseño de izquierda a derecha” y es el valor implícito predeterminado.
+				  </td>
+				</tr>
+				<tr id="SmallestScreenWidthQualifier">
+				  <td>smallestWidth</td>
+
+				  <td>
+					<p>El tamaño de una pantalla indicado por la dimensión más corta del área disponible.
+					<p>Estos son algunos valores que puedes utilizar para tamaños de pantallas comunes:</p>
+						<br>
+						<code><span>sw320dp</span></code><br>
+						<code><span>sw600dp</span></code><br>
+						<code><span>sw720dp</span></code><br>
+						etc.
+				  </td>
+				</tr>
+				<tr id="ScreenWidthQualifier">
+				  <td>Ancho disponible</td>
+				  <td>
+					<p>Especifica un ancho de pantalla mínimo disponible, en unidades <code>dp</code>  
+					<code><span>w&lt;N&gt;dp</span></code><br><br>
+					Ejemplos:<br>
+					<code><span>w720dp</span></code><br>
+					<code><span>w1024dp</span></code><br>
+					etc.
+				  </td>
+				</tr>
+				<tr id="ScreenHeightQualifier">
+				  <td>Altura disponible</td>
+				  <td>Especifica una altura de pantalla mínima disponible, en unidades "dp"
+					<code><span>h&lt;N&gt;dp</span></code><br><br>
+					Ejemplos:<br>
+					<code><span>h720dp</span></code><br>
+					<code><span>h1024dp</span></code><br>
+					etc.
+				  </td>
+
+				</tr>
+				<tr id="ScreenSizeQualifier">
+				  <td>Tamaño de pantalla</td>
+				  <td>
+						<p>&nbsp;</p>
+					<ul class="nolist">
+					<li><code>small</code>: Pantallas de tamaño similar a QVGA de baja densidad. El tamaño de diseño mínimo de una pantalla pequeña
+			 es de aproximadamente 320&nbsp;x&nbsp;426&nbsp;unidades&nbsp;dp.</li>
+					<li><code>normal</code>: Pantallas que son de tamaño similar a una
+			 pantalla HVGA de densidad media. El tamaño de diseño mínimo
+			 de una pantalla normal es de aproximadamente 320&nbsp;x&nbsp;470&nbsp;unidades&nbsp;dp.</li>
+					<li><code>large</code>: Pantallas que son de tamaño similar a una
+			 pantalla VGA de densidad media.
+					El tamaño de diseño mínimo de una pantalla grande es de aproximadamente 480&nbsp;x&nbsp;640&nbsp;unidades&nbsp;dp.</li>
+					<li><code>xlarge</code>: Pantallas que son considerablemente más grandes que la pantalla
+			 HVGA de densidad media tradicional. El tamaño de diseño mínimo de una pantalla extra grande
+			 es de aproximadamente 720&nbsp;x&nbsp;960&nbsp;unidades&nbsp;dp.</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="ScreenAspectQualifier">
+				  <td>Aspecto de la pantalla</td>
+				  <td>
+					<p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>long</code>: Pantallas largas, como WQVGA, WVGA, FWVGA.</li>
+					  <li><code>notlong</code>: Pantallas que no son largas, como QVGA, HVGA y VGA.</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="ScreenRoundQualifier">
+				  <td>Pantalla circular</td>
+				  <td>
+						<p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>round</code>: pantallas circulares; por ejemplo, un dispositivo wearable circular.</li>
+					  <li><code>notround</code>: pantallas rectangulares, como teléfonos y tablets</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="OrientationQualifier">
+				  <td>Orientación de la pantalla</td>
+				  <td>
+						<p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>port</code>: El dispositivo está en orientación vertical.</li>
+					  <li><code>land</code>: El dispositivo está en orientación horizontal.</li>
+					  <!-- Square mode is currently not used. -->
+					</ul>
+				  </td>
+				</tr>
+				<tr id="UiModeQualifier">
+				  <td>Modo de IU</td>
+				  <td>
+						<p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>car</code>: El dispositivo se muestra en un conector para autos.</li>
+					  <li><code>desk</code>: El dispositivo se muestra en un conector para escritorio.</li>
+					  <li><code>television</code>: El dispositivo se muestra en una televisión y proporciona
+			 una experiencia de "diez pies" en la que su IU está en una pantalla grande de la cual
+			 el usuario se encuentra alejado, orientada principalmente en torno a un DPAD u otra
+			interacción que no sea de puntero.</li>
+					  <li><code>appliance</code>: El dispositivo se utiliza como un aparato, sin
+			 pantalla.</li>
+					  <li><code>watch</code>: El dispositivo tiene una pantalla y se usa en la muñeca.</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="NightQualifier">
+				  <td>Modo nocturno</td>
+				  <td><p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>night</code>: Noche</li>
+					  <li><code>notnight</code>: Día</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="DensityQualifier">
+				  <td>Densidad de píxeles de la pantalla (dpi)</td>
+				  <td><p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>ldpi</code>: Pantallas de baja densidad; aproximadamente, 120&nbsp;dpi.</li>
+					  <li><code>mdpi</code>: Pantallas de densidad media (en HVGA tradicional); aproximadamente
+			, 160&nbsp;dpi.</li>
+					  <li><code>hdpi</code>: Pantallas de alta densidad; aproximadamente, 240&nbsp;dpi.</li>
+					  <li><code>xhdpi</code>: Pantallas de densidad extra alta; aproximadamente, 320&nbsp;dpi. <em>Se agregó en el nivel de API
+			8.</em></li>
+					  <li><code>xxhdpi</code>: Pantallas de densidad extra extraalta; aproximadamente, 480&nbsp;dpi. <em>Se agregó en el nivel de API
+			16.</em></li>
+					  <li><code>xxxhdpi</code>: usos de densidad extra extra extraalta (ícono lanzador únicamente); aproximadamente, 640&nbsp;dpi. <em>Se agregó en el nivel de API
+			18.</em></li>
+					  <li><code>nodpi</code>: Esto se puede utilizar para los recursos de mapas de bits que no deseas que se escalen
+			para que coincidan con la densidad del dispositivo.</li>
+					  <li><code>tvdpi</code>: Pantallas entre mdpi y hdpi; aproximadamente, 213&nbsp;dpi.</li>
+					</ul>
+					<p>Existe una relación de ajuste de escala de 3:4:6:8:12:16 entre las seis densidades primarias (ignorando la
+			densidad tvdpi). Por lo tanto, un mapa de bits de 9&nbsp;x&nbsp;9 en ldpi es de 12&nbsp;x&nbsp;12 en mdpi, de 18&nbsp;x&nbsp;18 en hdpi, de 24&nbsp;x&nbsp;24 en xhdpi, etc.
+			</p>
+				   </td>
+				</tr>
+				<tr id="TouchscreenQualifier">
+				  <td>Tipo de pantalla táctil</td>
+				  <td><p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>notouch</code>: El dispositivo no tiene una pantalla táctil.</li>
+					  <li><code>finger</code>: El dispositivo tiene una pantalla táctil para
+			 utilizar mediante la dirección e interacción del dedo del usuario.</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="KeyboardAvailQualifier">
+				  <td>Disponibilidad del teclado</td>
+				  <td><p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>keysexposed</code>: El dispositivo tiene un teclado disponible.</li>
+					  <li><code>keyshidden</code>: El dispositivo tiene un teclado de hardware disponible, pero está
+			oculto <em>y</em> el dispositivo <em>no</em> tiene un teclado de software habilitado.</li>
+					  <li><code>keyssoft</code>: El dispositivo tiene un teclado de software habilitado, sea
+			visible o no.</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="ImeQualifier">
+				  <td>Método principal de entrada de texto</td>
+				  <td><p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>nokeys</code>: El dispositivo no tiene teclas de hardware para la entrada de texto.</li>
+					  <li><code>qwerty</code>: El dispositivo tiene un teclado qwerty de hardware, que puede ser visible para el
+			usuario
+			o no.</li>
+					  <li><code>12key</code>: El dispositivo tiene un teclado de hardware de 12 teclas, que puede ser visible para el usuario
+			o no.</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="NavAvailQualifier">
+				  <td>Disponibilidad de las teclas de navegación</td>
+				  <td><p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>navexposed</code>: Las teclas de navegación están disponibles para el usuario.</li>
+					  <li><code>navhidden</code>: Las teclas de navegación no están disponibles (por ejemplo, detrás de una tapa
+			cerrada).</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="NavigationQualifier">
+				  <td>Método principal de navegación no táctil</td>
+				  <td><p>&nbsp;</p>
+					<ul class="nolist">
+					  <li><code>nonav</code>: El dispositivo no tiene otro recurso de navegación que no sea el uso de la
+			pantalla táctil.</li>
+					  <li><code>dpad</code>: El dispositivo tiene un controlador de dirección (o D-Pad) para la navegación.</li>
+					  <li><code>trackball</code>: El dispositivo tiene una bola de seguimiento para la navegación.</li>
+					  <li><code>wheel</code>: El dispositivo tiene una rueda de dirección para la navegación (poco común).</li>
+					</ul>
+				  </td>
+				</tr>
+				<tr id="VersionQualifier">
+				  <td>Versión de la plataforma (nivel de API)</td>
+				  <td>
+					<p>Nivel de API que admite el dispositivo. Por ejemplo, <code>v1</code> para el nivel de API
+			1 (dispositivos con Android 1.0 o versiones posteriores) y <code>v4</code> el nivel de API 4 (dispositivos con Android
+			1.6 o versiones posteriores).
+				  </td>
+				</tr>
+			</tbody></table>		
+</section>
 
 
 			</div>
@@ -235,37 +568,22 @@
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+		<script src="js/reveal.js"></script>
 
 		<script>
-
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
 			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
-
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
-				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
-
-				// Optional libraries used to extend on reveal.js
 				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
-
 		</script>
+
 
 	</body>
 </html>
