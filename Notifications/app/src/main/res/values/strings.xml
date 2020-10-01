@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Notifications</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="fire_toast">Lanzar toast</string>
+    <string name="fire_toast_w_layout">Lanzar toast 2</string>
+    <string name="ticker_text">Este texto de la notificación es bien.... bien.... extensooooo....</string>
+    <string name="notification_title">Notificación!</string>
+    <string name="notification_text">Esto es la notificación</string>
+    <string name="fire_notification">Lanzar notificación</string>
+    <string name="cancel_notification">Resetear notificación</string>
+
+</resources>
