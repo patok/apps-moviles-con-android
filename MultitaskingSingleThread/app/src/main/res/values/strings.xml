@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MultitaskingSingleThread</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="button_single_text">Load main thread</string>
+    <string name="load_background_w_err_text">Load backgr thread w/ error</string>
+    <string name="load_background_text">Load backgr thread</string>
+    <string name="load_async_text">Load Async</string>
+    <string name="show_toast_text">Show toast</string>
+    <string name="clear_text">Clear image</string>
+
+</resources>
