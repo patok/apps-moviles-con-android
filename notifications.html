@@ -3,43 +3,16 @@
 
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<title>Desarrollo de Aplicaciones con Android - Seminario 2 (AUS)</title>
 
-		<meta name="description" content="">
-		<meta name="author" content="Patricio Keilty">
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
-
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
-
-		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-		<script>
-			if( window.location.search.match( /print-pdf/gi ) ) {
-				var link = document.createElement( 'link' );
-				link.rel = 'stylesheet';
-				link.type = 'text/css';
-				link.href = 'css/print/pdf.css';
-				document.getElementsByTagName( 'head' )[0].appendChild( link );
-			}
-		</script>
-
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-
-<style>
-.reveal section img {
-  border: none;
-}
-</style>
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
 	</head>
 
 	<body>
@@ -48,10 +21,9 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
-					<h1>Apps móviles con Android</h1>
-					<h2>Seminario 2 - Analista Universitario en sistemas</h2>
-					<h4>5ta Semana</h4>
+				<section data-background-video="video/android.mp4">
+					<h1>Notificaciones</h1>
+					<h3>Seminario 2 - AUS</h3>
 					<p>
 						<small>Created by <a href="http://keilty.com.ar">Patricio Keilty</a> / <a href="http://twitter.com/patokeilty">@patokeilty</a></small>
 					</p>
@@ -87,56 +59,74 @@
 						<h3></h3>
 <p>Provee feedback en un popup, apareciendo (fade-in) y desaparenciendo(fade-out) al cabo de un lapso de tiempo. La activity actual permanece visible y activa.
 <p>
-			<img title="local" src="img/toast.png">
+			<img title="toast" style="background: white;" src="img/toast.png">
 						</p>
-<p>si se requiere intervención del usuario considere utilizar en cambio una Notificación en la barra de estado.
+<p>si requiere intervención del usuario utilice en cambio las notificaciones en la barra de estado.
 				</section>
 
-                <section>
-                    <h3>Toast messages con custom view</h3>
-			<p>Es posible personalizar los popups utilizando un layout propio.</p>
-<p><pre><code data-trim>
-&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/toast_layout_root"
-              android:orientation="horizontal"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:padding="8dp"
-              android:background="#DAAA"
-              &gt;
-    &lt;ImageView android:src="@drawable/ic_launcher"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginRight="8dp"
-               /&gt;
-    &lt;TextView android:id="@+id/text"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="#FFF"
-              /&gt;
-&lt;/LinearLayout&gt;
-</code></pre></p>
-<p><pre><code data-trim>
-	LayoutInflater inflater = getLayoutInflater();
-	View layout = inflater.inflate(R.layout.toast_layout,
-		                       (ViewGroup) findViewById(R.id.toast_layout_root));
-
-	TextView text = (TextView) layout.findViewById(R.id.text);
-	text.setText("Un toast customizado");
-
-	Toast toast = new Toast(getApplicationContext());
-	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-	toast.setDuration(Toast.LENGTH_SHORT);
-	toast.setView(layout);
-	toast.show();
-</code></pre></p>
-                </section>
+				<section>
+					<section>
+						<h3>Toast messages con custom view</h3>
+						<p>Es posible personalizar los popups utilizando un layout propio.</p>
+						<p>
+						<pre><code data-trim>
+				&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				              android:id="@+id/toast_layout_root"
+				              android:orientation="horizontal"
+				              android:layout_width="fill_parent"
+				              android:layout_height="fill_parent"
+				              android:padding="8dp"
+				              android:background="#DAAA"
+				              &gt;
+				    &lt;ImageView android:src="@drawable/ic_launcher"
+				               android:layout_width="wrap_content"
+				               android:layout_height="wrap_content"
+				               android:layout_marginRight="8dp"
+				               /&gt;
+				    &lt;TextView android:id="@+id/text"
+				              android:layout_width="wrap_content"
+				              android:layout_height="wrap_content"
+				              android:textColor="#FFF"
+				              /&gt;
+				&lt;/LinearLayout&gt;
+				</code></pre>
+						</p>
+					</section>
+					<section>
+						<h3>Toast messages con custom view ... </h3>
+						<pre><code data-trim>
+					LayoutInflater inflater = getLayoutInflater();
+					View layout = inflater.inflate(R.layout.toast_layout,
+						                       (ViewGroup) findViewById(R.id.toast_layout_root));
+				
+					TextView text = (TextView) layout.findViewById(R.id.text);
+					text.setText("Un toast customizado");
+				
+					Toast toast = new Toast(getApplicationContext());
+					toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+					toast.setDuration(Toast.LENGTH_SHORT);
+					toast.setView(layout);
+					toast.show();
+				</code></pre>
+						</p>
+					</section>
+				</section>
 
 				<section>
-						<h2>Notificaciones de usuario</h2>
-		<p>Una notificación es un mensaje que se muestra al usuario fuera de la interacción normal de la interface (UI).<p>Cuando se pide al sistema que envíe una notificación, primero aparece un ícono en al <strong>área de notificación</strong>. Para ver los detalles de la misma, el usuario debe expandir el área de notificiones o <strong>buzón de notificaciones</strong>(notification drawer).  
-
-<div><img title="icon-notif" src="img/iconic_notification.png" style="vertical-align : top;"><img title="detailed-notif" src="img/normal_notification.png"></div>
+					<h2>Notificaciones de usuario</h2>
+					<section>
+						<p>Una notificación es un mensaje que se muestra al usuario fuera de la interacción normal de la interface (UI).
+						<div><img title="icon-notif" src="img/iconic_notification.png" style="background: white; vertical-align : top;"></div>
+					</section>
+					<section>
+						<div><img title="detailed-notif" src="img/normal_notification.png" style="background: white; vertical-align : top;">
+						</div>
+				
+						Cuando se pide al sistema que envíe una notificación, primero aparece un ícono en al <strong>área de
+							notificación</strong>. Para ver los detalles de la misma, el usuario debe expandir el área de notificiones o
+						<strong>buzón de notificaciones</strong>(notification drawer).
+					</section>
+				
 				</section>
 
 <!-- Notification display elements -->
@@ -153,8 +143,7 @@
                 <section>
                     <h3>Notificación : elementos visuales</h3>
 <h4>Vista normal</h4>
-<p>Se ve cuando el usuario despliega el area de notificaciones (64dp alto). 
-                    <p><img title="local" src="img/normal_notification_callouts.png">
+                    <div><img title="local" src="img/normal_notification_callouts.png" style="background: white;"></div>
                         <ol>
                         <li class="fragment highlight-current-red">Content title</li>
                         <li class="fragment highlight-current-red">Large icon</li>
@@ -169,17 +158,20 @@
                 <section>
                     <h3>Notificación : elementos visuales</h3>
 <h4>Vista grande</h4>
-<p>Se ve cuando el la notificación se expande, normalmente es la primera o la que el usuario expande con un  gesto. 
-                    <div><img style="margin: 20px;" src="img/bigpicture_notification_callouts.png">
-                        <ol style="display : inline-block; margin: 40px;">
-                        <li class="fragment" data-fragment-index="1">Content title</li>
-                        <li class="fragment" data-fragment-index="1">Large icon</li>
-                        <li class="fragment" data-fragment-index="1">Content text</li>
-                        <li class="fragment" data-fragment-index="1">Content info</li>
-                        <li class="fragment" data-fragment-index="1">Small icon</li>
-                        <li class="fragment" data-fragment-index="1">Hora en que fue enviada</li>
-                        <li class="fragment roll-in blue" data-fragment-index="2">Area de detalle</li>
-                        </ol></div>
+					<div  style="display: inline-block; width:40%;vertical-align: top;"><img style="margin: auto; background: white; align-content: top
+					;" src="img/bigpicture_notification_callouts.png">
+					</div>
+					<div style="display: inline-block; width:40%; margin: 10px;">
+                        <ol>
+                        <li class="fragment roll-in blue"> Content title</li>
+                        <li class="fragment roll-in blue"> Large icon</li>
+                        <li class="fragment roll-in blue"> Content text</li>
+                        <li class="fragment roll-in blue"> Content info</li>
+                        <li class="fragment roll-in blue"> Small icon</li>
+                        <li class="fragment roll-in blue"> Hora en que fue enviada</li>
+                        <li class="fragment roll-in blue" >Area de detalle</li>
+						</ol>
+					</div>
                 </section>
 
 <!-- ej de uso de notificaciones: llamada en espera -->
@@ -250,9 +242,7 @@ notificationManager.cancelAll();
 
                 <section>
                     <h2>BroadcastReceiver</h2>
-			<p>Es un componente básico de una aplicación Android.
 <p>El sistema emite notificaciones de eventos (Intents) a todos los receivers registrados.<br/>
-Típicamente el workflow para los broadcasts es el siguiente:
                         <ul>
                         <li class="fragment roll-in" >registrarse para recibir Intents</li>
                         <li class="fragment roll-in" >algún componente o app transmite el Intent (<strong>sendBroadcast(...)</strong>)</li>
@@ -313,38 +303,27 @@ public class ReceiverTest extends BroadcastReceiver {
 
 		</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
-
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
 		<script>
-
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
+	
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
 			Reveal.initialize({
 				controls: true,
 				progress: true,
-				history: true,
 				center: true,
-
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
-				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
-
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
+				hash: true,
+	
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
 			});
-
+	
 		</script>
-
+	
 	</body>
 </html>

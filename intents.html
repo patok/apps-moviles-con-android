@@ -3,135 +3,138 @@
 
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<title>Desarrollo de Aplicaciones con Android - Seminario 2 (AUS)</title>
 
-		<meta name="description" content="">
-		<meta name="author" content="Patricio Keilty">
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
-
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
-
-		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-		<script>
-			if( window.location.search.match( /print-pdf/gi ) ) {
-				var link = document.createElement( 'link' );
-				link.rel = 'stylesheet';
-				link.type = 'text/css';
-				link.href = 'css/print/pdf.css';
-				document.getElementsByTagName( 'head' )[0].appendChild( link );
-			}
-		</script>
-
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
 	</head>
 
-	<body>
+<body>
 
-		<div class="reveal">
+	<div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>Apps móviles con Android</h1>
-					<h2>Seminario 2 - Analista Universitario en sistemas</h2>
-					<h4>3ra Semana</h4>
-					<p>
-						<small>Created by <a href="http://keilty.com.ar">Patricio Keilty</a> / <a href="http://twitter.com/patokeilty">@patokeilty</a></small>
-					</p>
-                    <p>
-                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-                            <img alt="Licencia Creative Commons" style="border-width:0" src="img/cc-by-nc-sa-88x31.png" />
-                        </a>
-                    </p>
-				</section>
+		<!-- Any section element inside of this container is displayed as a slide -->
+		<div class="slides">
+			<section data-background-video="video/android.mp4">
+				<h1>Intents - Eventos del sistema</h1>
+				<h3>Seminario 2 - AUS</h3>
+				<p>
+					<small>Created by <a href="http://keilty.com.ar">Patricio Keilty</a> / <a
+							href="http://twitter.com/patokeilty">@patokeilty</a></small>
+				</p>
+				<p>
+					<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+						<img alt="Licencia Creative Commons" style="border-width:0" src="img/cc-by-nc-sa-88x31.png" />
+					</a>
+				</p>
+			</section>
 
-				<section>
-					<h2>Intents</h2>
-					<p>Es un objeto para mensajes que se usa para invocar una acción sobre otro componente de una app.
-					<br/>Los 3 casos fundamentales en que se emplea son:
-					<ul>
-						<li class="fragment roll-in">iniciar una Activity, pasando el Intent al método <strong>startActivity()</strong> o <strong>startActivityForResult()</strong></li> 
-						<li class="fragment roll-in">iniciar un Service: usandolo con <strong>startService()</strong> o <strong>bindService()</strong></li>
-						<li class="fragment roll-in">transmitir un evento (p/ BroadcastReceivers), a través de <strong>sendBroadcast()</strong></li>
-					</ul>
-					</p>
+			<section>
+				<h2>Intents</h2>
+				<p>Es un objeto para mensajes que se usa para invocar una acción sobre otro componente de una app.
+					<br />Los 3 casos fundamentales en que se emplea son:
+				<ul>
+					<li class="fragment roll-in">iniciar una Activity, pasando el Intent al método
+						<strong>startActivity()</strong> o <strong>startActivityForResult()</strong></li>
+					<li class="fragment roll-in">iniciar un Service: usandolo con <strong>startService()</strong> o
+						<strong>bindService()</strong></li>
+					<li class="fragment roll-in">transmitir un evento (p/ BroadcastReceivers), a través de
+						<strong>sendBroadcast()</strong></li>
+				</ul>
+				</p>
 
-				</section>
+			</section>
 
-				<section>
-						<h2>Intents</h2>
-						<h3>tipos</h3>
-					<ul>
-						<li class=""><strong>explícito</strong>: especifica el componente por nombre (nombre completo de la clase)</li> 
-						<li class=""><strong>implícito</strong>: no se nombre ningún componente específico, en cambio de declara una acción a ejecutar</li>
-					</ul>
-				</section>
-				<section>
-						<h2>Intents</h2>
-						<h3></h3>
-			<img title="local" src="img/intent-activity.png">
-						</p>
-					<ol>
-						<li class="fragment roll-in">Activity A crea un Intent con una acción determinada llamando a <strong>startActivity()</strong></li> 
-						<li class="fragment roll-in">el sistema Android busca entre todas las apps un intent filter que matchea el intent recibido. Si es encontrada,</li>
-						<li class="fragment roll-in">el sistema llama a la activity encontrada (Activity B) e invoca método <strong>onCreate()</strong>, pasandole el Intent</li>
-					</ol>
-				</section>
+			<section>
+				<h2>Intents</h2>
+				<h3>tipos</h3>
+				<ul>
+					<li class=""><strong>explícito</strong>: especifica el componente por nombre (nombre completo de la
+						clase)</li>
+					<li class=""><strong>implícito</strong>: no se nombre ningún componente específico, en cambio de
+						declara una acción a ejecutar</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Intents</h2>
+				<div style="display: inline-block; margin: auto; background-color: white;"><img src="img/intent-activity.png"
+					style="width: 50%"></div>
+				<ol>
+					<li class="fragment roll-in">Activity A crea un Intent con una acción determinada llamando a
+						<strong>startActivity()</strong></li>
+					<li class="fragment roll-in">el sistema Android busca una app que matchea el intent ... si encuentra,</li>
+					<li class="fragment roll-in">el sistema instancia la activity (Activity B), llama al método
+						<strong>onCreate()</strong>, pasándole el Intent</li>
+				</ol>
+			</section>
 
 
-				<section>
-						<h3>Información en Intents</h3>
-		<p>
-<ul>
-	<li class="fragment roll-in"><strong>Component</strong>: Nombre del componente a invocar (opcional), necesario si la invocación es explícita!</li> 
-	<li class="fragment roll-in"><strong>Action</strong>: especifica la acción genérica a realizar ,ej. ACTION_VIEW para visualizar cierta información del usuario, ACTION_SEND el usuario tiene para compartir datos con otra aplicación)</li> 
-	<li class="fragment roll-in"><strong>Data</strong>: el URI que referencia los datos para ser usados y/o el MIME type de los datos. El tipo de datos provisto es determinado por la acción invocada (ej.: ACTION_EDIT requiere el URI del documento a editar). Están disponibles los métodos <strong>setData()</strong>,<strong>setType()</strong> y <strong>setDataAndType()</strong></li> 
-	<li class="fragment roll-in"><strong>Category</strong>: información adicional acerda del tipo de componente que debería manejar el Intent, ej.: CATEGORY_BROWSABLE mostrar contenido web, CATEGORY_LAUNCHER actividad inicial de app</li> 
-</ul>
+			<section>
+				<h3>Información en Intents</h3>
+				<p>
+				<ul>
+					<li class="fragment roll-in"><strong>Component</strong>: Nombre del componente a invocar (opcional),
+						necesario si la invocación es explícita!</li>
+					<li class="fragment roll-in"><strong>Action</strong>: especifica la acción genérica a realizar ,ej.
+						ACTION_VIEW para visualizar cierta información del usuario, ACTION_SEND el usuario tiene para
+						compartir datos con otra aplicación)</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Información en Intents ...</h3>
+				<p>
+				<ul>
+					<li class="fragment roll-in"><strong>Data</strong>: el URI que referencia los datos para ser usados
+						y/o el MIME type de los datos. El tipo de datos provisto es determinado por la acción invocada
+						(ej.: ACTION_EDIT requiere el URI del documento a editar). Están disponibles los métodos
+						<strong>setData()</strong>,<strong>setType()</strong> y <strong>setDataAndType()</strong></li>
+					<li class="fragment roll-in"><strong>Category</strong>: información adicional acerda del tipo de
+						componente que debería manejar el Intent, ej.: CATEGORY_BROWSABLE mostrar contenido web,
+						CATEGORY_LAUNCHER actividad inicial de app</li>
+				</ul>
 
-				</section>
+			</section>
+			<section>
+				<h3>Información en Intents ...</h3>
+				<p>
+				<ul>
+					<li class="fragment roll-in"><strong>Extras</strong>: pares clave-valor con info adicional
+						requerida, algunas acciones requiren info extra, ej. String[] Intent.EXTRA_EMAIL con las
+						direcciones y Intent.EXTRA_SUBJECT para componer email</li>
+					<li class="fragment roll-in"><strong>Flags</strong>: pueden especificar de qué manera lanzar una
+						Activity (a que tarea pertenece) y cómo tratarla una vez que se ha invocado
+						(FLAG_ACTIVITY_NO_HISTORY)</li>
+				</ul>
+				ref.: <a href="https://developer.android.com/guide/components/intents-common">Intent comunes</a> 
+			</section>
 
-				<section>
-						<h3>Información en Intents (cont)</h3>
-		<p>
-<ul>
-	<li class="fragment roll-in"><strong>Extras</strong>: pares clave-valor con info adicional requerida, algunas acciones requiren info extra, ej. String[] Intent.EXTRA_EMAIL con las direcciones y Intent.EXTRA_SUBJECT para componer email</li>
-	<li class="fragment roll-in"><strong>Flags</strong>: pueden especificar de qué manera lanzar una Activity (a que tarea pertenece) y cómo tratarla una vez que se ha invocado (FLAG_ACTIVITY_NO_HISTORY)</li>
-</ul>
-
-				</section>
-
-                <section>
-                    <h2>Explicit Intent</h2>
-			<p>Ejemplo, si se construye un servicio dentro de nuestra app, de nombre DownloadService, responsable de descargar un file</p>
-<p>
-<pre><code data-trim>
+			<section>
+				<h2>Explicit Intent</h2>
+				<p>Ejemplo, si se construye un servicio dentro de nuestra app, de nombre DownloadService, responsable de
+					descargar un file</p>
+				<p>
+				<pre><code data-trim>
 // Executed in an Activity, so 'this' is the Context
 // The fileUrl is a string URL, such as "http://www.example.com/image.png"
 Intent downloadIntent = new Intent(this, DownloadService.class);
 downloadIntent.setData(Uri.parse(fileUrl));
 startService(downloadIntent);
 </code></pre>
-</p>
-                </section>
+				</p>
+			</section>
 
 
-                <section>
-                    <h2>Implicit Intent</h2>
-			<p>Ejemplo, se desea enviar un mensaje de texto desde la app</p>
-<p>
-<pre><code data-trim>
+			<section>
+				<h2>Implicit Intent</h2>
+				<p>Ejemplo, se desea enviar un mensaje de texto desde la app</p>
+				<p>
+				<pre><code data-trim>
 // Create the text message with a string
 Intent sendIntent = new Intent();
 sendIntent.setAction(Intent.ACTION_SEND);
@@ -143,18 +146,24 @@ if (sendIntent.resolveActivity(getPackageManager()) != null) {
     startActivity(sendIntent);
 }
 </code></pre>
-</p>
-                </section>
+				</p>
+			</section>
 
-				<section>
-					<h3>Recibiendo Intents (implícitos)</h3>
-						<p>Para declarar los Intents que tu app puede recibir, se debe declarar intent filters para cada uno de los components de tu app <strong>&lt;intent-filter&gt;</strong> en el manifest, utilizando los siguientes elementos:
-                    <ul>
-                        <li  class="fragment roll-in">action : la acción que acepta</li>
-                        <li  class="fragment roll-in">data : el tipo de datos que acepta (data URI y MIME type)</li>
-                        <li  class="fragment roll-in">category : la categoría aceptada (para recibir intents implícitos se debe especificar CATEGORY_DEFAULT siempre)</li>
-                    </ul>
-<p><pre class="fragment roll-in"><code data-trim>
+			<section>
+				<h3>Recibiendo Intents (implícitos)</h3>
+				<p>Para declarar los Intents que tu app puede recibir, se debe declarar intent filters para cada uno de
+					los components de tu app <strong>&lt;intent-filter&gt;</strong> en el manifest, utilizando los
+					siguientes elementos:
+				<ul>
+					<li class="fragment roll-in">action : la acción que acepta</li>
+					<li class="fragment roll-in">data : el tipo de datos que acepta (data URI y MIME type)</li>
+					<li class="fragment roll-in">category : la categoría aceptada (para recibir intents implícitos se
+						debe especificar CATEGORY_DEFAULT siempre)</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Recibiendo Intents (implícitos)...</h3>
+				<pre class="fragment roll-in"><code data-trim>
 &lt;activity android:name="ShareActivity"&gt;
     &lt;intent-filter&gt;
         &lt;action android:name="android.intent.action.SEND"/&gt;
@@ -163,57 +172,47 @@ if (sendIntent.resolveActivity(getPackageManager()) != null) {
     &lt;/intent-filter&gt;
 &lt;/activity&gt;
 </code></pre>
-					</section>
+			</section>
 
-
-
-                <section>
-                    <h2>Intent tips</h2>
-			<p>comando adb para obtener información de los intent filters de las apps instaladas</p>
-<p><pre><code data-trim>
+			<section>
+				<h2>Intent tips</h2>
+				<p>comando adb para obtener información de los intent filters de las apps instaladas</p>
+				<p>
+				<pre><code data-trim>
 adb shell dumpsys package
-</code></pre></p>
-                </section>
+</code></pre>
+				</p>
+			</section>
 
 
 
-
-			</div>
 
 		</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+	</div>
 
-		<script>
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/zoom/zoom.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/search/search.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+		// Also available as an ES module, see:
+		// https://revealjs.com/initialization/
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			center: true,
+			hash: true,
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+		});
 
-				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
+	</script>
 
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
+</body>
 
-		</script>
-
-	</body>
 </html>

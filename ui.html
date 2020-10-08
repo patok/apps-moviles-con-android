@@ -6,39 +6,29 @@
 
 		<title>Desarrollo de Aplicaciones con Android - Seminario 2 (AUS)</title>
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/simple.css">
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
-
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
 		<style>
-				.scrollable {
-					bottom: 0px;
-					overflow-y: auto  !important;
-					overflow-x: hidden !important;
-				}
+			.scrollable {
+				bottom: 0px;
+				overflow-y: auto  !important;
+				overflow-x: hidden !important;
+			}
 		</style>
 	</head>
-
 	<body>
 
 		<div class="reveal">
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
-					<h1>Apps móviles con Android</h1>
-					<h2>Seminario 2 - Analista Universitario en sistemas</h2>
-					<h4>4ta Semana</h4>
+				<section data-background-video="video/android.mp4">
+					<h1>Interfaz de Usuario</h1>
+					<h3>Seminario 2 - AUS</h2>
 					<p>
 						<small>Created by <a href="http://keilty.com.ar">Patricio Keilty</a> / <a href="http://twitter.com/patokeilty">@patokeilty</a></small>
 					</p>
@@ -48,17 +38,21 @@
                         </a>
                     </p>
 				</section>
-
 				<section>
-					<h1>Interfaz de Usuario (UI)</h1>
-					<h2>View y ViewGroup</h2>
+					<h2>Interfaz de Usuario (UI)</h2>
+					<h3>Jerarquía de Views</h3>
+					<img title="local" src="img/viewgroup.png" style="background-color: white;">
 					<p class="fragment roll-in">Todos los elementos de la interface de usuario de una app se construyen utilizando alguna combinación de <strong>View</strong>s y <strong>ViewGroup</strong>s.
+				</section>
+				<section>
+					<h2>Interfaz de Usuario (UI)</h2>
+					<h3>View y ViewGroup</h3>
+
 					<p class="fragment roll-in">Una <strong><a href="https://developer.android.com/reference/android/view/View.html" >View</a></strong> se representa como un rectángulo en pantalla y es responsable de dibujarse/renderizarse y capturar eventos producidos x el usuario interactuando con ella. <p class="fragment roll-in">Un <strong><a href="https://developer.android.com/reference/android/view/ViewGroup.html" >ViewGroup</a></strong> es un objecto contenedor de otros objeto Views (o ViewGroup) y define la estructura interna o layout de la interface, típicamente los layouts.
 				</section>
-
 				<section>
-					<h1>Interfaz de Usuario (UI)</h1>
-					<h2>View - componentes básicos</h2>
+					<h2>Interfaz de Usuario (UI)</h2>
+					<h3>View - componentes básicos</h3>
 <ul>
 	<li class="fragment roll-in">campos texto</li>
 	<li class="fragment roll-in">botones</li>
@@ -71,13 +65,6 @@
 </ul>
 				</section>
 				
-				<section>
-					<h1>Interfaz de Usuario (UI)</h1>
-					<h2>Jerarquía de Views</h2>
-			<img title="local" src="img/viewgroup.png">
-						</p>Usando una jerarquía de objetos View y ViewGroup se construye la interface.
-				</section>
-
 				<section>
 						<h2>ViewGroups : Layouts</h2>
 		<p>Android provee una colección de subclases de ViewGroup que constituyen los layouts (LinearLayout, RelativeLayout, GridLayout).<p>Para definir el layout típicamente se utiliza XML:
@@ -115,62 +102,85 @@
 				</section>
 
 				<section>
-						<h2>Views: jerarquía y attributos</h2>
-						<h3>width y height</h3>
-		<p>
-		
-<div style="display: block">
-	<div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">width=wrap_content / eight=wrap_content</p><img src="img/width-eight-1.png" style=" border: none;"></div><div style="display: inline; padding: 40px;  border: none;" class=""><p style="font-size: 16px;">width=match_parent / eight=wrap_content</p><img src="img/width-eight-2.png" style=" border: none;"></div>
-</div>
-
+					<h2>Views: jerarquía y attrs</h2>
+					<h3>width y height</h3>
+				
+					<div style="display: block">
+						<div style="display: inherit; padding: 0px; border: none;" class="">
+							<p style="display: inline;font-size: 16px;">width=wrap_content / eight=wrap_content</p><img
+								src="img/width-eight-1.png" style=" border: none;">
+						</div>
+						<div style="display: inherit; padding: 0px;  border: none;" class="">
+							<p style="display: inline;font-size: 16px;">width=match_parent / eight=wrap_content</p><img
+								src="img/width-eight-2.png" style=" border: none;">
+						</div>
+					</div>
+				
 				</section>
 				
 				<section>
-						<h2>Views: jerarquía y attributos</h2>
-						<h3>width y height (cont)</h3>
-		<p>
-		
-<div style="display: block">
-	<div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">width=wrap_content / eight=match_parent</p><img src="img/width-eight-3.png" style=" border: none;"></div><div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">width=match_parent / eight=match_parent</p><img src="img/width-eight-4.png" style=" border: none;"></div>
-</div>		
-
+					<h2>Views: jerarquía y attrs</h2>
+					<h3>width y height (cont)</h3>
+					<p>
+				
+					<div style="display: block">
+						<div style="display: inherit; padding: 0px; border: none;" class="">
+							<p style="font-size: 16px;">width=wrap_content / eight=match_parent</p><img src="img/width-eight-3.png"
+								style=" border: none;">
+						</div>
+						<div style="display: inherit; padding: 0px; border: none;" class="">
+							<p style="font-size: 16px;">width=match_parent / eight=match_parent</p><img src="img/width-eight-4.png"
+								style=" border: none;">
+						</div>
+					</div>
+				
 				</section>
 				
 
 
 				<section>
-						<h2>Views: jerarquía y attributos</h2>
-						<h3>gravity vs. layout_gravity</h3>
-		<p>
-		
-<div style="display: block">
-	<div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">gravity=center</p><img src="img/center-3.png" style=" border: none;"></div><div style="display: inline; padding: 40px;  border: none;" class=""><p style="font-size: 16px;">layout_gravity=center</p><img src="img/center-2.png" style=" border: none;"></div>
-</div>
-
+					<h2>Views: jerarquía y attrs</h2>
+					<h3>gravity vs. layout_gravity</h3>
+					<p>
+				
+					<div style="display: block">
+						<div style="display: inherit; padding: 0px; border: none;" class="">
+							<p style="font-size: 16px;">gravity=center</p><img src="img/center-3.png" style=" border: none;">
+						</div>
+						<div style="display: inherit; padding: 0px;  border: none;" class="">
+							<p style="font-size: 16px;">layout_gravity=center</p><img src="img/center-2.png" style=" border: none;">
+						</div>
+					</div>
+				
 				</section>
 
 
 				<section>
-						<h2>Views: jerarquía y attributos</h2>
-						<h3>padding vs. margin</h3>
-		<p>
-		
-<div style="display: block">
-	<div style="display: inline; padding: 40px; border: none;" class=""><p style="font-size: 16px;">padding=X</p><img src="img/padding-2.png" style=" border: none;"></div><div style="display: inline; padding: 40px;  border: none;" class=""><p style="font-size: 16px;">layout_margin=X</p><img src="img/marging.png" style=" border: none;"></div>
-</div>
-
+					<h2>Views: jerarquía y attrs</h2>
+					<h3>padding vs. margin</h3>
+					<p>
+				
+					<div style="display: block">
+						<div style="display: inherit; padding: 0px; border: none;" class="">
+							<p style="font-size: 16px;">padding=X</p><img src="img/padding-2.png" style=" border: none; background-color: white;">
+						</div>
+						<div style="display: inherit; padding: 0px;  border: none;" class="">
+							<p style="font-size: 16px;">layout_margin=X</p><img src="img/marging.png" style=" border: none; background-color: white;">
+						</div>
+					</div>
+				
 				</section>
 
 
 				
 				<section>
-					<h2>Views: jerarquía y attributos</h2>
+					<h2>Views: jerarquía y attrs</h2>
 					<h3>visibility</h3>
-<ul>
-	<li class="fragment roll-in">visible</li>
-	<li class="fragment roll-in">invisible</li>
-	<li class="fragment roll-in">gone</li>
-</ul>
+					<ul>
+						<li class="fragment roll-in">visible</li>
+						<li class="fragment roll-in">invisible</li>
+						<li class="fragment roll-in">gone</li>
+					</ul>
 				</section>
 				
 				
@@ -567,23 +577,27 @@ res/
 
 		</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
-
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
 		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
+	
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
 			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+	
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
 			});
+	
 		</script>
-
 
 	</body>
 </html>

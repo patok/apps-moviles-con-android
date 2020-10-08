@@ -1,50 +1,25 @@
 <!doctype html>
-<html lang="en">
-
+<html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<title>Desarrollo de Aplicaciones con Android - Seminario 2 (AUS)</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
-
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
-
-		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-		<script>
-			if( window.location.search.match( /print-pdf/gi ) ) {
-				var link = document.createElement( 'link' );
-				link.rel = 'stylesheet';
-				link.type = 'text/css';
-				link.href = 'css/print/pdf.css';
-				document.getElementsByTagName( 'head' )[0].appendChild( link );
-			}
-		</script>
-
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
 	</head>
-
 	<body>
-
 		<div class="reveal">
-
-			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
-					<h1>Apps móviles con Android</h1>
-					<h3>Seminario 2 - Analista Universitario en sistemas</h3>
+
+				<section data-background-video="video/android.mp4">
+					<h1>Arquitectura de Android</h1>
+					<h3>Seminario 2 - AUS</h3>
 					<p>
 						<small>Created by <a href="http://keilty.com.ar">Patricio Keilty</a> / <a href="http://twitter.com/patokeilty">@patokeilty</a></small>
 					</p>
@@ -55,286 +30,273 @@
                     </p>
 				</section>
 
-				<section>
-						<h2>La plataforma Android</h2>
-<ul>
-						<li class="fragment roll-in">
-							Android es una plataforma (entiéndase pila de software) que permite correr aplicaciones en dispositivos móviles: teléfonos, tablets, relojes(wearables).
-						</li>
-						<li class="fragment roll-in" >
-							Opera con distintos componentes a distintos niveles: kernel SO, librerías de sistema, framework de aplicaciones, y aplicaciones principales (marcador teléfono, gestor de contactos, navegador, cámara de fotos).
-						</li>
-						<li class="fragment roll-in">
-							También provee herramientas para el desarrollo de aplicaciones: SDK (soft development kit), que incluye librerías y herramientas de desarrollo.
-						</li>
-						<li class="fragment roll-in">
-							Provee además un montón de documentación!
-						</li>
-</ul>
-
+				<section data-background="https://source.android.com/setup/images/Android_symbol_green_RGB.png" data-background-size="80%">
+					<h2>La plataforma Android</h2>
+					<ul>
+						<li class="fragment roll-in"><a href="https://en.wikipedia.org/wiki/Android_(operating_system)">Android</a> es un sistema operativo para móviles adquirida por Google Inc. </li>
+						<li class="fragment roll-in">basado en una versión modificada del kernel de Linux</li>
+						<li class="fragment roll-in">desarrollado en conjunto con el <a href="https://en.wikipedia.org/wiki/Open_Handset_Alliance">OHA</a></li>
+						<li class="fragment roll-in">Opera con distintos componentes a distintos niveles: kernel SO, librerías de sistema, framework de aplicaciones, y aplicaciones principales</li>
+						<li class="fragment roll-in">provee herramientas para el desarrollo de aplicaciones: SDK (soft development kit), que incluye librerías y herramientas de desarrollo.</li>
+					</ul>
+					<p></p>
 				</section>
-				<section data-state="dot-animate" id="reset">
-						<h4>La arquitectura de Android</h4>
-	<div style="width:50%;margin:auto;">	
-		<div class="" style="width: 100%;">
-			<img id="apps-layer" src="img/android-arch-apps-layer.png" style="margin: 0;">
+
+				<section>
+					<h1>Mercado móviles</h1>
+					<div style="width: 80%; margin: auto;">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/8/83/World_Wide_Smartphone_Sales.png" alt="">
+					</div>
+					<p>fte: </p>
+				</section>
+
+				<section>
+					<h4>La arquitectura de Android</h4>
+<div style="width:50%;margin:auto;">	
+	<div class="" style="width: 100%;">
+		<img id="apps-layer" src="img/android-arch-apps-layer.png" style="margin: 0;">
+	</div>
+	<div class="" style="width: 100%;">
+		<img id="api-layer" src="img/android-arch-api-layer.png" style="margin: 0;">
+	</div>
+	<div class="" style="width: 100%;">
+		<div class="" style="display:inline-block;width: 69%;">
+			<img id="c-layer" src="img/android-arch-C-layer.png" style="margin: 0;">
 		</div>
-		<div class="" style="width: 100%;">
-			<img id="api-layer" src="img/android-arch-api-layer.png" style="margin: 0;">
-		</div>
-		<div class="" style="width: 100%;">
-			<div class="" style="display:inline-block;width: 69%;">
-				<img id="c-layer" src="img/android-arch-C-layer.png" style="margin: 0;">
-			</div>
-			<div class="" style="display:inline-block;width: 29%;">
-				<img id="rt-layer" src="img/android-arch-RT-layer.png" style="margin: 0;">
-			</div>
-		</div>
-		<div class="" style="width: 100%;">
-			<img id="hal-layer" src="img/android-arch-HAL-layer.png" style="margin: 0;">
-		</div>
-		<div class="" style="width: 100%;">
-			<img id="linux-layer" src="img/android-arch-linux-layer.png" style="margin: 0;">
+		<div class="" style="display:inline-block;width: 29%;">
+			<img id="rt-layer" src="img/android-arch-RT-layer.png" style="margin: 0;">
 		</div>
 	</div>
+	<div class="" style="width: 100%;">
+		<img id="hal-layer" src="img/android-arch-HAL-layer.png" style="margin: 0;">
+	</div>
+	<div class="" style="width: 100%;">
+		<img data-id="linux-layer" src="img/android-arch-linux-layer.png" style="margin: 0;">
+	</div>
+</div>
 				</section>
 
-				<section>
+				<section data-background-image="img/android-arch-linux-layer.png" data-background-size="25%"
+					data-background-position="center bottom">
 					<section>
-					<h2>Linux kernel</h2>
-						<p>Servicios estándares</
-                    <ul>
-                        <li  class="fragment roll-in">Seguridad - arquitectura de permisos (aisla datos y recursos entre apps)</li>
-                        <li  class="fragment roll-in">Gestor de memoria y procesos (evita que procesos interfieran entre si)</li>
-                        <li  class="fragment roll-in">Entrada/Salida de Red y sistema de ficheros</li>
-                        <li class="fragment roll-in">Manejador de dispositivos (Device Drivers ) - componentes de hardware: cámara, sensores, sdcards</li>
-                    </ul>
-
+						<h2>Linux kernel</h2>
+						<p>
+						<ul>
+							<li class="frament roll-in">Basado en el Linux kernel, pero NO es Linux</li>
+							<li class="frament roll-in">No tiene sistema de ventanas nativo</li>
+							<li class="frament roll-in">No tiene soporte de glibc</li>
+							<li class="frament roll-in">No incluye las utilidades estándard de Linux (apt)</li>
+						</ul>
+						</p>
 					</section>
 					<section>
 						<h2>Linux kernel</h2>
-						<p>Servicios extras</p>
-                    <ul>
-                        <li  class="fragment roll-in">Gestión Energía (Power Management) - uso de batería</li>
-                        <li  class="fragment roll-in">Gestor de Memoria compartida, memoria para apps</li>
-                        <li class="fragment roll-in">IPC (comunicación inter procesos via RPC - Binder)</li>
-                        <li class="fragment roll-in"></li>
-                    </ul>
+						<p>Porqué el Linux kernel?</p>
+						<ul>
+							<li class="fragment roll-in">Seguridad - arquitectura de permisos (aisla datos y recursos entre apps)</li>
+							<li class="fragment roll-in">Gestor de memoria y procesos (evita que procesos interfieran entre si)</li>
+							<li class="fragment roll-in">Entrada/Salida de Red y sistema de ficheros</li>
+						</ul>
+				
+					</section>
+					<section>
+						<h2>Linux kernel</h2>
+						<p>Porqué el Linux kernel? (cont)</p>
+						<ul>
+							<li class="fragment roll-in">Manejador de dispositivos (Device Drivers) y HAL - componentes de hardware:
+								LCDs, touch-screens, cámaras, sensores, sdcards</li>
+							<li class="fragment roll-in">Librerías compartidas en forma de módulos enchufables(plugable)</li>
+							<li class="fragment roll-in">Código abierto y comunidad muy activa</li>
+						</ul>
+				
+					</section>
+					<section>
+						<h2>Linux kernel</h2>
+						<p>Mejoras al kernel (específicas Android)</p>
+						<ul>
+							<li class="fragment roll-in">Alarma - permite despertar dispositivo en base momento de tiempo o intervalo
+								específico</li>
+							<li class="fragment roll-in">memoria compartida (Ashmem) - </li>
+							<li class="fragment roll-in">Binder p/ IPC (comunicación inter procesos via ashmem)</li>
+							<li class="fragment roll-in">Gestión Energía (Power Management) - politicas + agresivas p/ uso de batería
+								(wake locks)</li>
+				
+							<li class="fragment roll-in">Low memory killer</li>
+							<li class="fragment roll-in">Kernel debugger (ADB)</li>
+							<li class="fragment roll-in">Logger</li>
+						</ul>
+					</section>
+				</section>
 
+				<section data-background-image="img/android-arch-C-layer.png" data-background-size="25%"
+				data-background-position="center bottom">
+					<section>
+						<h2>Librerías Nativas</h2>
+						<ul>
+						<li class="fragment roll-in">Bionic(libC): creación procesos e hilos, alocación de memoria, funciones/rutinas matemáticas</li>
+						<li class="fragment roll-in">Librería de funciones</li>
+						<li class="fragment roll-in">Servicios nativos</li>
+						<li class="fragment roll-in">HAL - librerías acceso hardware</li>
+						<ul>
+					</section>
+					<section>
+						<h2>Librerías Nativas</h2><h3>Bionic Libc</h3>
+						<ul>
+							<li class="fragment roll-in">Libc implementación optimizada</li>
+							<li class="fragment roll-in">Licencia: GPL vs BSD - drivers propietarios cerrados</li>
+							<li class="fragment roll-in">Tamaño: c/proceso incluye copia</li>
+							<li class="fragment roll-in">Velocidad: muy rápida p/ manejo hilos</li>
+							<li class="fragment roll-in">POSIX : características limitadas</li>
+							<li class="fragment roll-in">NO compatible con GNU Libc</li>
+							<li class="fragment roll-in">Se provee NDK, compila a Bionic</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Librerías Nativas</h2><h3>Principales funciones</h3>
+						<ul>
+							<li class="fragment roll-in">WebKit motor web</li>
+							<li class="fragment roll-in">Media Framework: video, audio, codecs</li>
+							<li class="fragment roll-in">SQLite: base de datos relacional embebida</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Librerias Nativas</h2>
+							<h3>Servicios Nativos</h3>
+							<p>Principales controladores de I/O de la plataforma</p>
+								<ul>
+									<li class="fragment roll-in">Surface Flinger: display render/composer</li>
+									<li class="fragment roll-in">+Surface Flinger: 2D/3D, OpenGL, hardware accel, double-buffering</li>
+									<li class="fragment roll-in">Audio flinger: mezclador de audio</li>
+									<li class="fragment roll-in">HAL: abstracciones intermedias entre lib nativas y drivers kernel</li>
+								</ul>
+					</section>
+				</section>
+
+				<section data-background-image="img/android-arch-RT-layer.png" data-background-size="15%"
+				data-background-position="center bottom">
+				<section>
+					<h2>Android Runtime </h2>
+					<p>Permite la ejecución de aplicaciones Android</p>
+					<ul>
+					<li class="fragment roll-in"><a href="https://developer.android.com/reference/packages">Core Java Libraries</a></li>
+					<li class="fragment roll-in">Dalvik Virtual Machine (hoy ART)</li>
+					<ul>
+				</section>
+				<section>
+					<h2>Core Java Libraries </h2>
+					<p>Típicamente escritas en lenguaje Java, provee un gran número de clases reutilizables</p>
+					<ul>
+					<li class="fragment roll-in">java classes básicas: java.*, javax.*</li>
+					<li class="fragment roll-in">ciclo de vide del app: android.*</li>
+					<li class="fragment roll-in">internet/servicios web: org.*</li>
+					<li class="fragment roll-in">tests de unidad: junit.*</li>
+					<ul>
+						<p class="fragment">ref: https://developer.android.com/reference/packages </p>
+				</section>
+				<section>
+					<h2>Dalvik VM</h2>
+					<!--p>La app se ejecuta dentro de la DVM. Uno puede asumir que el código Java se compila, y se ejecuta en standard Java virtual machine, pero no es así.</p-->
+					<ul>
+					<li class="fragment roll-in">escribe la aplicación en lenguaje Java</li>
+					<li class="fragment roll-in">es compilado a un .class (bytecode standard)</li>
+					<li class="fragment roll-in">una herramienta llamada DX transforma el bytecode Java, en un fichero ùnico con formato llamado <strong>DEX</strong></li>
+					<li class="fragment roll-in">fichero DEX file es empaquetado con los resources de la app e instalado en dispositivo</li>
+					<li class="fragment roll-in">el usuario ejecuta la app, la DVM entonces ejecuta las clases del DEX file</li>
+					<ul>
+<p class="fragment current-visible"> Esto es así porque la DVM fué específicamente diseñada para ejecutarse en dispositivos de recursos reducidos: CPU mas lentas, menos memoria, batería limitada. 
+				</section>
+				</section>
+
+
+				<section data-background-image="img/android-arch-api-layer.png" data-background-size="50%"
+					data-background-position="center bottom">
+					<section>
+						<h2>Application Framework</h2>
+						<p>Software reusable que las aplicaciones móviles requieren (Java bindings)</p>
+						<ul>
+							<li class="fragment roll-in">Activity Manager: ciclo de vida de las apps(Activities)</li>
+							<li class="fragment roll-in">Package Manager: archivos de aplicaciones instaladas (*.apk)</li>
+							<li class="fragment roll-in">Window Manager: se ocupa de gestionar ventanas de apps</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Application Framework (cont)</h3>
+						<ul>
+							<li class="fragment roll-in">Resource Manager: maneja recursos de las app - layouts, graficos, texto
+								localizado, audio
+							</li>
+							<li class="fragment roll-in">Content Providers: base de datos que permite a las apps almacenar y compartir
+								datos
+							</li>
+							<li class="fragment roll-in">Notification Manager: se encarga la barra de notificaciones (eventos desde las
+								apps)</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Application Framework (cont)</h3>
+						<h4>Servicios Hardware</h4>
+						<ul>
+							<li class="fragment roll-in">Location Service</li>
+							<li class="fragment roll-in">Telephony Service</li>
+							<li class="fragment roll-in">Bluetooth service</li>
+							<li class="fragment roll-in">WiFi service</li>
+							<li class="fragment roll-in">USB service</li>
+						</ul>
 					</section>
 				</section>
 
 
-					<section>
-						<h2>Librerías Nativas</h2>
-						<p>Librerías principales, escritas en C/C++</p>
-<p>típicamente se encargan de:procesos intensivos en uso de cpu y performance (rendering y actualización del display)
-
-                        <ul>
-                        <li class="fragment roll-in">System libC: creación procesos e hilos, alocación de memoria, funciones/rutinas matemáticas</li>
-                        <li class="fragment roll-in">Surface manager: actualización display</li>
-                        <li class="fragment roll-in">Media framework: para reproducir/grabar audio y video</li>
-                        <li class="fragment roll-in">Webkit: renderizado y display de páginas web</li>
-                        <li class="fragment roll-in">Open GL: para gráficos de alta performance</li>
-                        <li class="fragment roll-in">SQLite: maneja de tablas relacionales en memoria</li>
-                        <ul>
-					</section>
+				<section data-background-image="img/android-arch-apps-layer.png" data-background-size="50%"
+				data-background-position="center bottom">
+					<h2>Application Layer</h2>
+					<p>Aplicaciones estándar provistas en el móvil.</p>
+					<ul>
+					<li class="fragment roll-in">Home Screen</li>
+					<li class="fragment roll-in">Phone Dialer</li>
+					<li class="fragment roll-in">Web Browser</li>
+					<li class="fragment roll-in">Email Reader</li>
+					<li class="fragment roll-in">Contacs app</li>
+					<ul>
+				</section>
 
 
 
-					<section>
-					<section>
-						<h2>Android Runtime </h2>
-						<p>Permite la ejecución de aplicaciones Android (escribirlas tb)</p>
-                        <ul>
-                        <li class="fragment roll-in">Core Java Libraries</li>
-                        <li class="fragment roll-in">Dalvik Virtual Machine</li>
-                        <ul>
-					</section>
-					<section>
-						<h2>Core Java Libraries </h2>
-						<p>Típicamente escritas en lenguaje Java, provee un gran número de clases reutilizables</p>
-                        <ul>
-                        <li class="fragment roll-in">java classes básicas: java.*, javax.*</li>
-                        <li class="fragment roll-in">ciclo de vide del app: android.*</li>
-                        <li class="fragment roll-in">internet/servicios web: org.*</li>
-                        <li class="fragment roll-in">tests de unidad: junit.*</li>
-                        <ul>
-					</section>
-					<section>
-						<h2>Dalvik VM</h2>
-						<p>La app se ejecuta dentro de la DVM. Uno puede asumir que el código Java se compila, y se ejecuta en standard Java virtual machine, pero no es así.</p>
-                        <ul>
-                        <li class="fragment roll-in">escribe la aplicación en lenguaje Java</li>
-                        <li class="fragment roll-in">es compilado a un .class (bytecode standard)</li>
-                        <li class="fragment roll-in">una herramienta llamada DX transforma el bytecode Java, en un fichero ùnico con formato llamado <strong>DEX</strong></li>
-                        <li class="fragment roll-in">fichero DEX file es empaquetado con los resources de la app e instalado en dispositivo</li>
-                        <li class="fragment roll-in">el usuario ejecuta la app, la DVM entonces ejecuta las clases del DEX file</li>
-                        <ul>
-<p class="fragment current-visible"> Esto es así porque la DVM fué específicamente diseñada para ejecutarse en dispositivos de recursos reducidos: CPU mas lentas, menos memoria, batería limitada. 
-					</section>
-					</section>
 
-
-
-					<section>
-						<h2>Application Framework</h2>
-						<p>Software reusable que las aplicaciones móviles requieren.</p>
-                        <ul>
-                        <li class="fragment roll-in">Package Manager: base de aplicaciones instalada</li>
-                        <li class="fragment roll-in">Window Manager: se ocupa de gestionar ventanas de apps</li>
-                        <li class="fragment roll-in">View System: contiene componentes gráficos de la IU</li>
-                        <li class="fragment roll-in">Resource Manager: maneja recursos de las app - layouts, graficos, texto localizado</li>
-                        <li class="fragment roll-in">Activity Manager: se encarga de las Activities</li>
-                        <li class="fragment roll-in">Content Providers: base de datos que permite a las apps almacenar y compartir datos</li>
-                        <li class="fragment roll-in">Notification Manager: se encarga la barra de notificaciones (eventos desde las apps)</li>
-                        <ul>
-					</section>
-
-
-					<section>
-						<h2>Application Layer</h2>
-						<p>Aplicaciones estándar provistas en el móvil.</p>
-                        <ul>
-                        <li class="fragment roll-in">Home Screen</li>
-                        <li class="fragment roll-in">Phone Dialer</li>
-                        <li class="fragment roll-in">Web Browser</li>
-                        <li class="fragment roll-in">Email Reader</li>
-                        <li class="fragment roll-in">Contacs</li>
-                        <ul>
-					</section>
-
-
+				<section>
+					<h3>Referencias</h3>
+					<ul>
+						<li data-fragment-index="1"><a href="http://blog.keilty.com.ar/apps-moviles-con-android/arquitectura.html" target="_blank">Diapos Arquitectura Android</a></li>
+						<li><a href="https://source.android.com/devices/architecture?hl=en" target="_blank">AOSP Arquitectura (Android Open Source Project)</a></li>
+					</ul>
+					<h3>Videos s/ arquitectura de Android</h3>
+					<ul>
+						<li><a href="https://www.youtube.com/watch?v=QBGfUs9mQYY">Androidology - Architecture</a></li>
+						<li><a href="https://www.youtube.com/watch?v=G-36noTCaiA" target="_blank">Anotomy &amp; Physiology of an Android</a></li>
+					</ul>
+				</section>
 
 			</div>
-
 		</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
-
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/zoom/zoom.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/search/search.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
 		<script>
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
+			// Also available as an ES module, see:
+			// https://revealjs.com/initialization/
 			Reveal.initialize({
 				controls: true,
 				progress: true,
-				history: true,
 				center: true,
+				hash: true,
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
-				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
-
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
 			});
-
-			var animations = Array();
-			
-			function reset_animations() {
-				animations.forEach(function (animation,i,args){
-					animation.cancel();
-				});
-			};
-			
-			Reveal.addEventListener( 'dot-animate', function() {
-				document.getElementById('apps-layer').addEventListener('click', function () {
-					reset_animations();
-					animation = this.animate([
-						{ transform: 'scale(1)'},
-						{ transform: 'scale(3)'}],
-						{ duration: 700,
-						  iterations:1,
-						  direction: 'normal',
-						  fill: 'forwards',
-						  delay: 5,
-						  easing: 'ease-in'});
-					animations.push(animation);
-				});
-				document.getElementById('api-layer').addEventListener('click', function () {
-					reset_animations();
-					animation = this.animate([
-						{ transform: 'scale(1)'},
-						{ transform: 'scale(3)'}],
-						{ duration: 700,
-						  iterations:1,
-						  direction: 'normal',
-						  fill: 'forwards',
-						  delay: 5,
-						  easing: 'ease-in'});
-					animations.push(animation);
-				});				
-				document.getElementById('c-layer').addEventListener('click', function () {
-					reset_animations();
-					animation = this.animate([
-						{ transform: 'scale(1)'},
-						{ transform: 'scale(3)'}],
-						{ duration: 700,
-						  iterations:1,
-						  direction: 'normal',
-						  fill: 'forwards',
-						  delay: 5,
-						  easing: 'ease-in'});
-					animations.push(animation);
-				});
-				document.getElementById('rt-layer').addEventListener('click', function () {
-					reset_animations();
-					animation = this.animate([
-						{ transform: 'scale(1)'},
-						{ transform: 'scale(3)'}],
-						{ duration: 700,
-						  iterations:1,
-						  direction: 'normal',
-						  fill: 'forwards',
-						  delay: 5,
-						  easing: 'ease-in'});
-					animations.push(animation);
-				});
-				document.getElementById('hal-layer').addEventListener('click', function () {
-					reset_animations();
-					animation = this.animate([
-						{ transform: 'scale(1)'},
-						{ transform: 'scale(3)'}],
-						{ duration: 700,
-						  iterations:1,
-						  direction: 'normal',
-						  fill: 'forwards',
-						  delay: 5,
-						  easing: 'ease-in'});
-					animations.push(animation);
-				});
-				document.getElementById('linux-layer').addEventListener('click', function () {
-					reset_animations();
-					animation = this.animate([
-						{ transform: 'scale(1)', position: 'absolute', top: '200px', left: '200px'},
-						{ transform: 'scale(1.2)', position: 'absolute', top:'70px', left: '50px'}],
-						{ duration: 700,
-						  iterations:1,
-						  direction: 'normal',
-						  fill: 'forwards',
-						  delay: 5,
-						  easing: 'ease-in'});
-					animations.push(animation);
-				});
-				document.getElementById('reset').addEventListener('click', function (e){
-					if (e.target !== this)
-						return;
-					
-					reset_animations();
-				});
-			}, false );
 
 		</script>
 
