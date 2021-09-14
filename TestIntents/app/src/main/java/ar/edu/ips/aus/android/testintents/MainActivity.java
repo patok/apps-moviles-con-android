@@ -2,9 +2,12 @@ package ar.edu.ips.aus.android.testintents;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.net.URI;
 
 public class MainActivity extends Activity {
 
@@ -13,8 +16,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Intent intent = new Intent(Intent.ACTION_MAIN);
-		intent.addCategory(Intent.CATEGORY_HOME);
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse("http://ips.edu.ar"));
+
 		startActivity(intent);
 	}
 
