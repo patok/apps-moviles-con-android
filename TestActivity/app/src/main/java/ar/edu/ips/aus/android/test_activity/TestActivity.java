@@ -18,19 +18,21 @@ public class TestActivity extends Activity {
 		Log.i(TEST_ACTIVITY, "Llamada a OnCreate()");
 		setContentView(R.layout.activity_test);
 
-		Button btnExplicitCall = (Button) findViewById(R.id.button2);
-		btnExplicitCall.setOnClickListener(new Button.OnClickListener() {
+		Button btnImplicitCall = (Button) findViewById(R.id.button2);
+		btnImplicitCall.setOnClickListener(new Button.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				Intent sendIntent = new Intent();
 				sendIntent.setAction(Intent.ACTION_SEND);
-				sendIntent.setData(Uri.parse("mailto:pepe.sanchez@example.com"));
+				String recipient = "pepe.sanchez@example.com";
 				String textMessage = "Hola, hola ...";
 				sendIntent.putExtra(Intent.EXTRA_TEXT, textMessage);
+				sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
 				sendIntent.setType("text/plain");     // "text/plain" MIME
 
-				startActivity(Intent.createChooser(sendIntent, "Chooser Title"));
+				//startActivity(Intent.createChooser(sendIntent, "Chooser Title"));
+				startActivity(sendIntent);
 
 //			if (sendIntent.resolveActivity(getPackageManager()) != null) {
 //					startActivity(sendIntent);
@@ -39,8 +41,8 @@ public class TestActivity extends Activity {
 
 		});
 
-		Button btnImplicitCall = (Button) findViewById(R.id.button1);
-		btnImplicitCall.setOnClickListener(new View.OnClickListener() {
+		Button btnExplCall = (Button) findViewById(R.id.button1);
+		btnExplCall.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
