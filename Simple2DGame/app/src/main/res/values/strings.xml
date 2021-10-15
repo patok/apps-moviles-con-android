@@ -1,16 +1,3 @@
 <resources>
-    <string name="app_name">Simple Maze Game</string>
-    <string name="title_activity_main">Maze game</string>
-    <string name="label_group_name">Nombre del servidor</string>
-    <string name="btn_accept">Aceptar</string>
-    <string name="btn_cancel">Cancelar</string>
-    <string name="btn_create_group">Modo servidor</string>
-    <string name="btn_join_group">Modo cliente</string>
-    <string name="prgrss_searching_groups">Buscando servidores del juego ...</string>
-    <string name="toast_not_found_groups">No se encontraron servidores ...</string>
-    <string name="prgrss_connecting_to_group">Conectando con servidor ...</string>
-    <string name="device_connected">%s dispositivo conectado</string>
-    <string name="device_disconnected">%s dispositivo desconectado</string>
-    <string name="pause">PAUSE</string>
-    <string name="title_activity_final_scores">FinalScoresActivity</string>
+    <string name="app_name">Simple2DGame</string>
 </resources>

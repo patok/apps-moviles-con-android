@@ -1,4 +1,4 @@
-package ar.edu.ips.aus.seminario2.sampleproject;
+package ar.edu.ips.aus.seminario2.simple2dgame;
 
 import org.junit.Test;
 
