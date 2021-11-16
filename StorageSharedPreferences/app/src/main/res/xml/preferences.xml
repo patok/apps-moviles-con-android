@@ -7,4 +7,10 @@
         android:defaultValue="false" >
 
     </CheckBoxPreference>
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:key="edit_text_preference_1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Username" />
 </PreferenceScreen>

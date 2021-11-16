@@ -1,10 +1,14 @@
 package ar.edu.ips.aus.seminario2.preferences_sample.storagesharedpreferences;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
 
 public class StorageSharedPreferences extends Activity {
 
@@ -25,7 +29,23 @@ public class StorageSharedPreferences extends Activity {
 		return true;
 	}
 
-    @Override
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_settings:
+				startPreferencesActivity();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void startPreferencesActivity() {
+		Intent intent = new Intent(this.getApplicationContext(), MyPrefsActivity.class);
+		startActivity(intent);
+	}
+
+	@Override
     protected void onResume() {
     	super.onResume();
     	
