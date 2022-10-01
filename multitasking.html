@@ -111,29 +111,26 @@
 				<section>
 					<h2>Multitasking ...</h2>
 					<ul>
-						<li class="fragment highlight-current-red">Cuando la app realiza trabajo intenso en respuesta a la interacción del
-							usuario, este modelo de hilo único puede ocasionar una pobre respuesta.</li>
-						<li class="fragment highlight-current-red">O sea, si todo ocurre en el UI thread, operaciones largas y costosas en
-							tiempo como acceso a la red o base de datos bloquean la UI.</li>
-						<li class="fragment highlight-current-red">Cuando el hilo está bloqueado, los eventos no se pueden entregar (incluido el
-							renderizado de UI). -> se torna irresponsiva (irresponsive)</li>
-						<li class="fragment highlight-current-red">si el UI thread está bloqueado por +5 segs, salta el diálogo "La aplicación
-							no está respondiendo: esperar? o cerrar?".</li>
+						<li class="fragment highlight-current-red">Cuando la app realiza trabajo intenso en respuesta a la interacción del usuario, este modelo de hilo único puede ocasionar una pobre respuesta.</li>
+						<li class="fragment highlight-current-red">O sea, si todo ocurre en el UI thread, operaciones largas y costosas en tiempo como acceso a la red o base de datos bloquean la UI.</li>
+						<li class="fragment highlight-current-red">Cuando el hilo está bloqueado, los eventos no se pueden entregar (incluido el renderizado de UI). -> se torna irresponsiva (irresponsive)</li>
+						<li class="fragment highlight-current-red">si el UI thread está bloqueado por +5 segs, salta el diálogo "La aplicación	no está respondiendo: esperar? o cerrar?".</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>Multitasking ...</h2>
-<p>En definitiva, hay 2 reglas de oro para el modelo single thread de UI de Android
+<p>En definitiva, hay 2(tres) reglas de oro para el modelo single thread de UI de Android
                         <ol>
                         <li class="fragment fade-up">No bloquear el hilo principal (UI thread)</li>
                         <li class="fragment fade-up">No acceder a los widgets de la UI fuera del hilo principal (UI thread)</li>
+						<li class="fragment fade-up">No operar con la red (NetworkOnMainThreadException)</li>
                         </ol>
 				</section>
 
 				<section>
 					<h2>Hilos de trabajo</h2>
-					<h4>Worker/Backgorund threads</h4>
+					<h4>Worker/Background threads</h4>
 					Operaciones largas, de respuesta no-inmediata requieren entonces el uso de mas hilos de ejecución
 					(worker/background).
 					<span class="fragment roll-in">Pero que ocurre cuando se necesita interactuar con la UI ?? (está prohibido fuera del main thread!). Android provee algunas soluciones.
@@ -257,16 +254,93 @@
 					</div>
 				
 				</section>
-			
+
+
+
+				<section data-auto-animate>
+					<h4>Usando Handler y Looper</h4>
+					<div style="display: inline-flex;">
+						<div style="">
+							<span style="font-size:xx-large;">Para obtener un Looper y MessageQueue el hilo de ejecución debe llamar a <strong><a href="https://developer.android.com/reference/android/os/Looper#prepare()">Looper.prepare()</a></strong> al arrancar. Looper.prepare() identifica el hilo que la está llamando, y creo respectivamente el Looper y la MessageQueue y los asocia con el mismo hilo. Finalmente se debe llamar a <strong><a href="https://developer.android.com/reference/android/os/Looper#loop()">Looper.loop()</a></strong> para arrancar el proceso de mensajes.
+							</span>
+						</div>
+						<div style="width: 50%;">
+							<pre style="font-size:large;width: 100%"><code data-trim>
+class LooperThread extends Thread {
+
+      public Handler mHandler;
+
+      public void run() {
+          Looper.prepare();
+
+          mHandler = new Handler() {
+              public void handleMessage(Message msg) {
+                 // process incoming messages here
+                 // this will run in non-ui/background thread
+              }
+          };
+
+          Looper.loop();
+      }
+  }							</code></pre>
+						</div>
+					</div>
+
+				</section>
+
+				<section>
+					<h4>Enviando usando Handler</h4>
+
+					<p> Un <strong>Message</strong> :
+					<pre><code data-trim>
+Message msg = new Message();
+msg.obj = "Esta es la voz de los marcianos ...";
+handler.sendMessage(msg);
+					</code></pre>
+					</p>
+
+					<p> Un <strong>Runnable</strong> :
+					<pre><code data-trim>
+new Handler(Looper.getMainLooper()).post(new Runnable() {
+@Override
+public void run() {
+        // esto correrá en el hilo principal
+    }
+});
+					</code></pre>
+					</p>
+				</section>
+
 				<section data-auto-animate>
 					<h2>HandlerThread</h2>
 					<div>
-						<div style="display:inline;"><img style="width:45%;float:left;" title="looper/queue/handler"
+						<div style="display:inline;"><img style="width:30%;float:left;" title="looper/queue/handler"
 								src="img/android_threading.png">
 						</div>
 						<div style="display:inline;">
-							<p style="display:inline-block;width:45%">Un <strong><a href="https://developer.android.com/reference/android/os/HandlerThread">HandlerThread</a></strong>
+							<p style="display:inline-block;width:65%">Un <strong><a href="https://developer.android.com/reference/android/os/HandlerThread">HandlerThread</a></strong>
 								corresponde al hilo específico de un Looper.
+							<pre style="display:inline;"><code data-trim>
+private class MyHandlerThread extends HandlerThread {
+
+    Handler handler;
+
+    public MyHandlerThread(String name) {
+        super(name);
+    }
+
+    @Override
+    protected void onLooperPrepared() {
+        handler = new Handler(getLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                // process incoming messages here
+                // this will run in non-ui/background thread
+            }
+        };
+    }
+}
+					</code></pre>
 						</div>
 					</div>					
 				</section>
