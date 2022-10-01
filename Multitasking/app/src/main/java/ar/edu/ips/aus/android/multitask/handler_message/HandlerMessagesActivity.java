@@ -22,25 +22,7 @@ public class HandlerMessagesActivity extends Activity {
 	private ProgressBar mProgressBar;
 	private int mDelay = 500;
 
-	Handler handler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case SET_PROGRESS_BAR_VISIBILITY: {
-				mProgressBar.setVisibility((Integer) msg.obj);
-				break;
-			}
-			case PROGRESS_UPDATE: {
-				mProgressBar.setProgress((Integer) msg.obj);
-				break;
-			}
-			case SET_BITMAP: {
-				mImageView.setImageBitmap((Bitmap) msg.obj);
-				break;
-			}
-			}
-		}
-	};
+	Handler handler;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +48,26 @@ public class HandlerMessagesActivity extends Activity {
 						Toast.LENGTH_SHORT).show();
 			}
 		});
+
+		handler = new Handler(getMainLooper()) {
+			@Override
+			public void handleMessage(Message msg) {
+				switch (msg.what) {
+					case SET_PROGRESS_BAR_VISIBILITY: {
+						mProgressBar.setVisibility((Integer) msg.obj);
+						break;
+					}
+					case PROGRESS_UPDATE: {
+						mProgressBar.setProgress((Integer) msg.obj);
+						break;
+					}
+					case SET_BITMAP: {
+						mImageView.setImageBitmap((Bitmap) msg.obj);
+						break;
+					}
+				}
+			}
+		};
 
 	}
 
