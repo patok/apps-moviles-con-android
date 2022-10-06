@@ -6,20 +6,20 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 public class StorageSharedPreferences extends Activity {
 
-	EditText campo;
+	TextView campo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_storage_shared_preferences);
 		
-        campo = (EditText) findViewById(R.id.editText1);
+        campo = (TextView) findViewById(R.id.editText1);
 	}
 
 	@Override
