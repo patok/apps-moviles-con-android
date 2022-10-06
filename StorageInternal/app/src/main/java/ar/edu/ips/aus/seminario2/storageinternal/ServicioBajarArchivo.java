@@ -46,7 +46,7 @@ public class ServicioBajarArchivo extends IntentService {
 		    }
 		    urlStream.close();
 			outputStream.close();
-			//mostrarMensaje("Se copió el archivo correctamente");
+			mostrarMensaje("Se copió el archivo correctamente");
 			notificarAlUsuario(strURL);
 		} catch (MalformedURLException e) {
 			mostrarMensaje("La dirección del archivo es inválida");
@@ -81,7 +81,7 @@ public class ServicioBajarArchivo extends IntentService {
 		
 		// Instanciar una Notification
 		int icon = R.drawable.ic_launcher;
-		CharSequence notifText = "Se termin� de bajar el archivo: " + url;
+		CharSequence notifText = "Se terminó de bajar el archivo: " + url;
 		long cuando = System.currentTimeMillis();
 		
 		// creo un PendingIntent
