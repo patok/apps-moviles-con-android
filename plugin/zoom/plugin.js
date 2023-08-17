@@ -8,7 +8,7 @@ const Plugin = {
 	init: function( reveal ) {
 
 		reveal.getRevealElement().addEventListener( 'mousedown', function( event ) {
-			var defaultModifier = /Linux/.test( window.navigator.platform ) ? 'ctrl' : 'alt';
+			var defaultModifier = /Linux/.test( window.navigator.platform ) ? 'ctrl' : 'ctrl';
 
 			var modifier = ( reveal.getConfig().zoomKey ? reveal.getConfig().zoomKey : defaultModifier ) + 'Key';
 			var zoomLevel = ( reveal.getConfig().zoomLevel ? reveal.getConfig().zoomLevel : 2 );
