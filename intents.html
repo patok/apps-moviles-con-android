@@ -22,7 +22,7 @@
 		<!-- Any section element inside of this container is displayed as a slide -->
 		<div class="slides">
 			<section data-background-video="video/android.mp4">
-				<h1>Intents - Eventos del sistema</h1>
+				<h1>Activities & Intents - Eventos del sistema</h1>
 				<h3>Seminario 2 - AUS</h3>
 				<p>
 					<small>Created by <a href="http://keilty.com.ar">Patricio Keilty</a> / <a
@@ -33,6 +33,61 @@
 						<img alt="Licencia Creative Commons" style="border-width:0" src="img/cc-by-nc-sa-88x31.png" />
 					</a>
 				</p>
+			</section>
+
+			<section>
+				<h1>Activity</h1>
+				<p>Componente visual del app</p>
+				<ul>
+					<li class="fragment roll-in">provee una UI para interacción con el usuario</li>
+					<li class="fragment roll-in">una app se puede componer de un encadenamiento de 1+ Activity</li>
+					<li class="fragment roll-in">en Android, una tarea (Task) comprende una serie de Activities relacionadas, como
+						resultado de las acciones del usuario</li>
+					<li class="fragment roll-in">la navegación de una Activity a otra en Android está asociada al concepto de: Task
+						(tarea) y Task Backstack (pila de activities)</li>
+					<ul>
+			</section>
+
+			<section>
+				<h2>Task Backstack</h2>
+				<img title="backstack" src="img/diagram_backstack.png" style="background-color: white;">
+				<p>
+				<ul>
+					<li class="fragment roll-in">lanza una app ventana principal: Activity1</li>
+					<li class="fragment roll-in">luego inicia Activity2</li>
+					<li class="fragment roll-in">luego inicia Activity3</li>
+					<li class="fragment roll-in">se presiona botón back: Activity3 destruida</li>
+					<li class="fragment roll-in">Activity2 queda al frente</li>
+				</ul>
+				</p>
+				<p class="fragment roll-in">ref:<a
+						href="http://developer.android.com/guide/topics/fundamentals/tasks-and-back-stack.html">http://developer.android.com/guide/topics/fundamentals/tasks-and-back-stack.html</a>
+				</p>
+			</section>
+
+			<section>
+				<h3>Estados de un Activity</h3>
+				<p></p>
+				<ul>
+				<li class="fragment roll-in">Resumed/Running - visible, ususario interactuando</li>
+				<li class="fragment roll-in">Paused/Visible - visible, usuario no interactúa, puede ser destruida</li>
+				<li class="fragment roll-in">Stopped - no visible, puede ser destruida</li>
+				<ul>
+			</section>
+
+			<section>
+				<h3>Callbacks de un Activity</h3>
+				<p></p>
+				<ul>
+				<li class="fragment roll-in">onCreate() - cuando va a ser creada</li>
+				<li class="fragment roll-in">onStart() - cuando está por ser visible</li>
+				<li class="fragment roll-in">onDestroy() - cuando va a ser destruida</li>
+				<ul>
+			</section>
+
+			<section>
+				<h3>Ciclo de vida de un Activity</h3>
+				<p><img title="lifecycle" src="img/activity_lifecycle.png"  style="background-color: white; width: 50%; margin: 0px;"></p>
 			</section>
 
 			<section>
@@ -48,7 +103,6 @@
 						<strong>sendBroadcast()</strong></li>
 				</ul>
 				</p>
-
 			</section>
 
 			<section>
@@ -183,9 +237,6 @@ adb shell dumpsys package
 </code></pre>
 				</p>
 			</section>
-
-
-
 
 		</div>
 

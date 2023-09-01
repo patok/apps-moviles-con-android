@@ -31,21 +31,40 @@
                         </a>
                     </p>
 				</section>
+
 				<section>
-					<h2>Ejecución de apps</h2>
+					<h2>Fundamento de Aplicaciones</h2>
+					<h3>Ejecución de apps</h3>
 					<ul>
-						<li class="fragment fade-down">APK: colección de componentes Java que conforman una aplicación</li>
+						<li class="fragment fade-down">APK: código compilado + archivos recursos y datos que forman la aplicación</li>
 						<li class="fragment fade-down">c/ app se instala bajo un usuario único dedicado y sus componentes comparten
 							recursos: databases, files, preferencias, etc</li>
-						<li class="fragment fade-down">además: los componentes (distintas partes de la app) comparten su propio proceso
+						<li class="fragment fade-down">además: los componentes de una app, Activities, Services, BroadcastReceivers, ContentProviders comparten el mismo proceso
 							(se ejecutan en el mismo hilo)</li>
 						<li class="fragment fade-down">son managed: Android se encarga de su ciclo de vida</li>
 					</ul>
+					<aside class="notes">				Para escribir aplicaciones de Android, es posible usar los lenguajes Kotlin, Java y C++. Las herramientas de Android SDK compilan tu código, junto con los archivos de recursos y datos, en un APK: un paquete de Android, que es un archivo de almacenamiento con el sufijo .apk. Un archivo APK incluye todos los contenidos de una aplicación de Android y es el archivo que usan los dispositivos con tecnología Android para instalar la aplicación.
+					<p>
+						Cada aplicación de Android reside en su propia zona de pruebas de seguridad y está protegida por las siguientes características de seguridad de Android:
+						<ol>
+						<li>El sistema operativo Android es un sistema Linux multiusuario en el que cada aplicación es un usuario diferente.
+						De forma predeterminada, el sistema le asigna a cada aplicación un ID de usuario de Linux único (solo el sistema utiliza el ID y la aplicación lo desconoce). El sistema establece permisos para todos los archivos en una aplicación de modo que solo el ID de usuario asignado a esa aplicación pueda acceder a ellos.</li>
+						<li>Cada proceso tiene su propia máquina virtual (VM), por lo que el código de una aplicación se ejecuta de forma independiente de otras aplicaciones.</li>
+
+						<li> De forma predeterminada, cada aplicación ejecuta su propio proceso de Linux. El sistema Android inicia el proceso cuando se requiere la ejecución de alguno de los componentes de la aplicación y, luego, lo cierra cuando el proceso ya no es necesario o cuando el sistema debe recuperar memoria para otras aplicaciones.</li>
+						</ol>
+						De esta manera, el sistema Android implementa el principio de mínimo privilegio. Es decir, de forma predeterminada, cada aplicación tiene acceso solo a los componentes que necesita para llevar a cabo su trabajo y nada más. Esto crea un entorno muy seguro, en el que una aplicación no puede acceder a partes del sistema para las que no tiene permiso. 
+						<p>Sin embargo, hay maneras en las que una aplicación puede compartir datos con otras aplicaciones y en las que una aplicación puede acceder a servicios del sistema:
+						<ul>
+						<li>Es posible coordinar que dos aplicaciones compartan el mismo ID de usuario de Linux para que puedan acceder a los archivos de la otra. Para conservar recursos del sistema, las aplicaciones con el mismo ID de usuario también pueden coordinar la ejecución en el mismo proceso de Linux y compartir la misma VM. Las aplicaciones también deben estar firmadas con el mismo certificado.</li>
+						<li>Una aplicación puede solicitar permiso para acceder a datos del dispositivo, como los contactos de un usuario, los mensajes de texto, el dispositivo de almacenamiento (tarjeta SD), la cámara y la conexión Bluetooth. El usuario debe conceder de manera explícita estos permisos. Para obtener más información, consulta Cómo trabajar con permisos del sistema.</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
 					<h2>Fundamento de Aplicaciones</h2>
-					<p>Bloques para construir apps
+					<h3>Componentes de la app</h3>
 					<ul>
 						<li class="fragment roll-in">Activity (lógica de interacción con la UI, subclase de <a href="https://developer.android.com/reference/android/app/Activity"><em>Activity.class</em></a>)</li>
 						<li class="fragment roll-in">Services (ejecución de procesos/tareas en background <a href="https://developer.android.com/reference/android/app/Service"><em>Service.class</em></a>)</li>
@@ -57,92 +76,227 @@
 				</section>
 			
 				<section>
-						<h2>Componentes de una aplicación</h2>
-						<h3>Activity</h3>
-<ul>
+					<h2>Componentes de la app</h2>
+					<h3>Activity</h3>
+					<ul>
 						<li class="fragment roll-in">
-							clase central para interactuar con el usuario, presentar la interface (UI)
+							punto de entrada de interacción con el usuario, representa una pantalla individual (UI)
 						</li>
-						<li class="fragment roll-in" >
-							una activity deber estar enfocada en la realización de una acción simple del usuario (ej. marcado de un número telefónico, ingresar datos de un contacto)
+						<li class="fragment roll-in">
+							una activity deber estar enfocada en la realización de una acción simple del usuario (ej. marcado de un
+							número telefónico, ingresar datos de un contacto)
 						</li>
-</ul>
-
+					</ul>
+					<aside class="notes">
+						<p>Una actividad es el punto de entrada de interacción con el usuario. Representa una pantalla individual con una
+							interfaz de usuario.
+							Por ejemplo, una aplicación de correo electrónico tiene una actividad que muestra una lista de los correos
+							electrónicos nuevos, otra actividad para redactar el correo electrónico y otra actividad para leerlo. Si bien
+							las actividades funcionan juntas para ofrecer una experiencia de usuario uniforme en la aplicación de correo
+							electrónico, cada una es independiente de las demás. De esta manera, una aplicación diferente puede iniciar
+							cualquiera de estas actividades (si la aplicación de correo electrónico lo permite). Por ejemplo, para que el
+							usuario comparta una imagen, una aplicación de cámara puede iniciar la actividad correspondiente en la
+							aplicación de correo electrónico que redacta el nuevo mensaje. Una actividad posibilita las siguientes
+							interacciones clave entre el sistema y la aplicación:
+						<ul>
+							<li>Realizar un seguimiento de lo que realmente le interesa al usuario (lo que está en pantalla) para garantizar
+								que el sistema siga ejecutando el proceso que aloja la actividad.</li>
+							<li></li>Saber que los procesos usados con anterioridad contienen elementos a los que el usuario puede regresar
+							(actividades detenidas) y, en consecuencia, priorizar más esos procesos que otros.</li>
+							<li></li>Ayudar a la aplicación a controlar la finalización de su proceso para que el usuario pueda regresar a
+							las actividades con el estado anterior restaurado.</li>
+							<li></li>Permitir que las aplicaciones implementen flujos de usuarios entre sí y que el sistema los coordine (el
+							ejemplo más común es compartir).</li>
+						</ul>
+						Las actividades se implementan como subclases de la clase Activity. Para obtener más información sobre la clase
+						Activity, consulta la guía para desarrolladores Actividades.
+					</aside>   
 				</section>
+
 				<section>
-					<h2>Componentes de una app...</h2>
-					<h3>Service class</h3>
+					<h2>Componentes de la app...</h2>
+					<h3>Service</h3>
 					<p>
+					<ul>
 						<li class="fragment roll-in">
-							Corre en background (no tiene UI)
+							Punto de entrada app, corre en background (no tiene UI)
 						</li>
 						<li class="fragment roll-in">
 							propósitos generales:
 							<ol>
 								<li class="fragment roll-in">pueden ejecutar tareas que corren por largos períodos de tiempo,</li>
-								<li class="fragment roll-in">segundo, proveen una manera de que diferentes procesos invoquen operaciones
-									o compartan datos.</li>
+								<li class="fragment roll-in">proveen una manera de que diferentes partes de una app se enlacen a
+									él, e invoquen operaciones
+									y compartan datos.</li>
 							</ol>
 						</li>
+					</ul>
 					</p>
 					<p class="fragment roll-in">típico ejemplo: MediaPlayback Service, permite seguir escuchando música mientras se
 						invocan otras apps, o activities.
+
+					<aside class="notes" data-markdown><textarea data-template>
+						Un servicio es un punto de entrada general que permite mantener la ejecución de una
+						aplicación en segundo plano por diversos motivos. Es un componente que se ejecuta en segundo plano para realizar
+						operaciones de ejecución prolongada o para realizar tareas de procesos remotos. Un servicio **no proporciona una
+						interfaz de usuario**. Por ejemplo, **un servicio podría reproducir música en segundo plano mientras el usuario se
+						encuentra en otra aplicación**, o podría *capturar datos en la red sin bloquear la interacción del usuario con una
+						actividad*. Otro componente, como una actividad, puede iniciar el servicio y permitir que se ejecute o enlazarse a
+						él para interactuar. De hecho, existen dos semánticas muy diferentes que los servicios usan para indicarle al
+						sistema cómo administrar una aplicación: Los servicios iniciados le indican al sistema que los siga ejecutando hasta
+						que finalicen su trabajo. Dos ejemplos serían la sincronización de datos en segundo plano o la reproducción de
+						música después de que el usuario sale de la aplicación. La sincronización de datos en segundo plano o la
+						reproducción de música también son dos tipos de servicios iniciados muy diferentes que modifican la manera en que el
+						sistema los administra:
+
+						 * La reproducción de música es algo de lo que el usuario es consciente, por lo que la aplicación se lo comunica al
+						sistema indicándole que quiere ejecutarse en segundo plano y le envía una notificación al respecto al usuario. En
+						este caso, el sistema sabe que debe hacer todo lo posible para mantener el proceso de ese servicio en funcionamiento
+						porque el usuario no estará satisfecho si se interrumpe.
+						 * Un servicio habitual en segundo plano no es algo de lo que el usuario sea consciente, por lo que el sistema tiene
+						más libertad para administrarlo. Puede permitir que se interrumpa (y reiniciarlo posteriormente) si necesita memoria
+						RAM en procesos que son más urgentes para el usuario.
+
+						Los servicios enlazados se ejecutan porque otra aplicación (o el sistema) indicó que quiere usarlos. Básicamente, lo
+						que sucede es que un servicio le brinda una API a otro proceso. Por lo tanto, el sistema sabe que hay una
+						dependencia entre estos procesos. En consecuencia, si el proceso A está enlazado a un servicio en el proceso B, sabe
+						que debe mantener funcionando el proceso B (y el servicio correspondiente) para el proceso A. Además, si el proceso
+						A es de interés para el usuario, también sabe que debe tratar el proceso B teniendo esto en cuenta. Gracias a su
+						flexibilidad (o a pesar de ella), los servicios se han convertido en un componente muy útil para todos los tipos de
+						conceptos generales del sistema. Los fondos de pantalla animados, los receptores de notificaciones, los protectores
+						de pantalla, los métodos de entrada, los servicios de accesibilidad y muchas otras funciones básicas del sistema se
+						compilan como servicios que las aplicaciones implementan y que el sistema vincula cuando deben ejecutarse.
+					
+						Un servicio se implementa como una subclase de Service.
+					</textarea></aside>
 				</section>
 
 				<section>
-					<h2>Componentes de una app...</h2>
+					<h2>Componentes de la app...</h2>
 					<h3>Broadcast Receiver</h3>
-					<p>escucha y responde ante eventos del sistema
+					<p>escucha y responde ante eventos del sistema, e.g. apagado de pantalla, nivel de carga crítico, imagen capturada
 					<ul>
-						<li class="fragment roll-in">eventos <-> Android Intents</li>
-						<li class="fragment roll-in">Publishers entonces crean un Intent y lo transmiten (broadcast)</li>
-						<li class="fragment roll-in">esos Intents son encaminados a los respectivos receptores, que han subscripto para
-							recibir ese tipo de eventos.</li>
+						<li class="fragment roll-in">eventos <=> Android Intents</li>
+						<li class="fragment roll-in">un Publisher crean un Intent y lo transmite (broadcast)</li>
+						<li class="fragment roll-in">los Intents son encaminados a los respectivos receptores, subscriptos para
+							recibir ese tipo de eventos (aún cuando la app no esté en ejecución)</li>
 					</ul>
-					<p class="fragment roll-in">ejemplo: SMS app, tiene un Broadcast Receiver, y al recibir un
-						evento de llegada de SMS, un servicio para descargar y almacenar el sms.
+					<p class="fragment roll-in">e.g.: SMS app, tiene un Broadcast Receiver, y al recibir un
+						evento de llegada de SMS, crea un componente servicio para descargar y almacenar dicho sms.
+
+					<aside class="notes" data-markdown><textarea data-template>
+						Un receptor de emisión es un componente que posibilita que el sistema entregue eventos a la aplicación fuera de un flujo de usuarios habitual, lo que permite que la aplicación responda a los anuncios de emisión de todo el sistema. Dado que los receptores de emisión son otro punto bien definido de entrada a la aplicación, el sistema puede entregar emisiones incluso a las aplicaciones que no estén en ejecución. Por ejemplo, una aplicación puede programar una alarma para publicar una notificación sobre un evento futuro destinada al usuario. Al entregar dicha alarma al receptor de emisión de la aplicación, no hace falta que dicha aplicación siga ejecutándose hasta que se active la alarma. Muchas emisiones provienen del sistema (por ejemplo, las que anuncian que se apagó la pantalla, que el nivel de carga de la batería es bajo o que se capturó una imagen). Las aplicaciones también pueden iniciar emisiones, por ejemplo, para avisarles a las demás aplicaciones que se descargaron datos al dispositivo y que están disponibles para el uso. Si bien los receptores de emisión no exhiben una interfaz de usuario, pueden crear una notificación de la barra de estado para alertar al usuario cuando se produzca un evento de emisión. Sin embargo, por lo general, un receptor de emisión es simplemente una puerta de enlace a otros componentes y está destinado a realizar una cantidad mínima de trabajo. Por ejemplo, podría programar un servicio JobService para que realice algunas tareas en función del evento con JobScheduler.
+						Un receptor de emisión se implementa como una subclase de BroadcastReceiver y cada receptor de emisión se entrega como un objeto Intent.
+					</textarea></aside>
 				</section>
 
 				<section>
-					<h2>Componentes de una app...</h2>
+					<h2>Componentes de la app...</h2>
 					<h3>Content Provider</h3>
 					<p>Permite a una app almacenar y compartir datos</p>
 					<ul>
-						<li class="fragment roll-in">usan una interface estilo base de datos</li>
+						<li class="fragment roll-in">usan una interface estilo base de datos (CRUD)</li>
 					</ul>
 					<p class="fragment roll-in">el navegador es un ejemplo de Content Provider, porque almacena los sitios favoritos
 						(bookmarks) de usuario y permite acceder y compartir estos datos desde otras apps.
+					<aside class="notes" data-markdown><textarea data-template>
+						Un proveedor de contenido administra un conjunto compartido de datos de la aplicación que puedes almacenar en el sistema de archivos, en una base de datos SQLite, en la Web o en cualquier otra ubicación de almacenamiento persistente a la que tenga acceso tu aplicación. A través del proveedor de contenido, otras aplicaciones pueden consultar o modificar los datos si el proveedor de contenido lo permite. Por ejemplo, el sistema Android proporciona un proveedor de contenido que administra la información de contacto del usuario. De esta manera, cualquier aplicación con los permisos correspondientes puede consultar el proveedor de contenido (como ContactsContract.Data) para la lectura y la escritura de información sobre una persona específica. En ocasiones, se interpreta que el proveedor de contenido es una abstracción en una base de datos, porque tiene un gran volumen de API y compatibilidad incorporado. Sin embargo, su finalidad principal es diferente desde una perspectiva de diseño del sistema. Para el sistema, un proveedor de contenido es un punto de entrada a una aplicación para publicar elementos de datos con nombre y se identifica mediante un esquema de URI. Así, una aplicación puede decidir cómo quiere asignar los datos que contiene a un espacio de nombres de URI y entregar esos URI a otras entidades que, a su vez, pueden usarlos para acceder a los datos. Gracias a esto, el sistema puede realizar algunas tareas específicas cuando administra una aplicación:
+
+						* Asignar un URI no exige que la aplicación permanezca ejecutándose, por lo que los URI pueden persistir incluso después de que se cierran las aplicaciones a las que pertenecen. El sistema solo necesita asegurarse de que la aplicación de un URI siga ejecutándose si debe recuperar los datos de la aplicación desde el URI en cuestión.
+						* Estos URI también ofrecen un modelo de seguridad importante y detallado. Por ejemplo, una aplicación puede colocar el URI de una imagen que tiene en el portapapeles, pero bloquear al proveedor de contenido para que otras aplicaciones no puedan acceder a él libremente. Si otra aplicación intenta acceder a ese URI en el portapapeles, el sistema puede concederle acceso usando un permiso de URI temporal para que solo pueda acceder a los datos mediante ese URI, pero nada más.
+						
+						Los proveedores de contenido también son útiles para leer y escribir datos privados de tu aplicación y que no se comparten.
+						
+						Un proveedor de contenido se implementa como una subclase de ContentProvider y debe implementar un conjunto estándar de API que permitan a otras aplicaciones realizar transacciones.
+					</textarea></aside>
 				</section>
 
-				<section>
-					<h4>Reusando componentes </h4>
 
+				<section>
+					<h2>Activando componentes </h2>
 					<section>
 						<p class="fragment roll-in">
 							Un aspecto exclusivo del diseño de Android es que <span class="fragment highlight-red"> cualquier aplicación puede "iniciar" un componente de otra
 							aplicación </span> ...</p>
 						<p class="fragment roll-in"> por ej. si el usuario quiere tomar una foto c/ la cámara del dispositivo, ya existe una
 							app que lo hace,
-							entonces porqué no reutilizarla? (en vez de desarrollar una activida propia)
+							entonces porqué no reutilizarla? (en vez de desarrollar una activity propia)
 						</p>
 					</section>
-				
-				
-					<section style="top: 0px;">
+					<section>
+						<p class="fragment roll-in">
+							De los cuatro tipos de componentes, tres (actividades, servicios y receptores de emisión) se activan mediante un <span class="fragment highlight-red">mensaje asíncrono denominado Intent</span></p>
+						<p class="fragment roll-in">Los intents vinculan componentes entre sí en tiempo de ejecución.
+						</p>
+						<aside class="notes" data-markdown><textarea data-template>
+							Una intent se crea con un objeto Intent, que define un mensaje para activar un componente específico (intent explícita) o un tipo específico de componente (intent implícita).
+	
+							Para actividades y servicios, una intent define la acción que se realizará (por ejemplo, ver o enviar algo) y puede especificar el URI de los datos en los que debe actuar, entre otras cosas que el componente que se está iniciando podría necesitar saber. Por ejemplo, una intent podría transmitir una solicitud para que una actividad muestre una imagen o abra una página web. En algunos casos, puedes iniciar una actividad para recibir un resultado. En ese caso, dicha actividad también devuelve el resultado en una Intent. Por ejemplo, puedes emitir una intent para permitir que el usuario elija un contacto personal y te lo devuelva. Esa intent devuelta incluye un URI dirigido al contacto elegido.
+							
+							En el caso de los receptores de emisión, la intent tan solo define el anuncio que se emite. Por ejemplo, una emisión para indicar que el nivel de batería del dispositivo es bajo incluye solo una cadena de acción conocida que indica batería baja.
+												
+						</textarea></aside>
+					</section>
+					<section >
 						<div style="display: inline-block; margin: auto; background-color: white;"><img src="img/intent-activity.png"
 								style="width: 50%"></div>
-						<p class="fragment roll-in"> cuando el sistema inicia un componente (ej. la cámara), se inicia el proceso de esa otra app y crea las
-							instancias de la clases del componente respectivo. <p class="fragment roll-in">Es un proceso distinto a de tu app.
+						<p class="fragment roll-in"> cuando el sistema inicia un componente (ej. la cámara), se inicia el proceso de esa otra app y crea las instancias de la clases del componente respectivo. <p class="fragment roll-in">Es un proceso distinto al proceso en el que corre tu app.
 						</p>
 					</section>
-					<section style="top: 0px;">
+					<section >
 						<div style="display: inline-block; margin: auto; background-color: white;"><img src="img/intent-activity.png"
-								style="width: 50%"></div> <p class="fragment roll-in">como son procesos distintos e independientes, con acceso limitado dado por el
-						usuario que corre esa app, tu
-						app no puede correrla directamente <p class="fragment roll-in">sino que lo hace Android a partir de tu solicitud mediante un mensaje
-						especial con la intención de iniciar un componente específico.
+								style="width: 50%"></div>
+						<p class="fragment roll-in">como son procesos distintos e independientes, con acceso limitado dado por el usuario que corre esa app, tu	app no puede correrla directamente
+						<p class="fragment roll-in">lo hace Android al recibir un mensaje especial (Intent) define el propósito de iniciar un componente específico.
 					</section>
+					<section>
+						<p>
+							Existen métodos específicos para activar c/ tipo de componente:
+							<ul>
+								<li class="fragment roll-in">
+									Activity: pasar un Intent a <span style="color: green">startActivity()</span> o <span style="color: green">startActivityForResult()</span> (p/ devuelva un resultado).
+								</li>
+								<li class="fragment roll-in">
+									Service: Intent a <span style="color: green">startService()</span> para arrancarlo;o establecer un enlace con el servicio ya corriendo c/ Intent a <span style="color: green">bindService()</span>.
+								</li>
+								<li class="fragment roll-in">
+									BroadcastReceiver: Intent a métodos <span style="color: green">sendBroadcast()</span>.
+								</li>
+								<li class="fragment roll-in">
+									ContentProvider: consulta llamando a <span style="color: green">query()</span> en un ContentResolver
+								</li>
+							</ul>						
+						
+						</p>
+						<aside class="notes" data-markdown><textarea data-template>
+							A diferencia de las actividades, los servicios y los receptores de emisión, los proveedores de contenido no se activan con intents. En cambio, se activan mediante solicitudes de un ContentResolver. El solucionador de contenido aborda todas las transacciones directas con el proveedor de contenido, de modo que el componente que realiza las transacciones con el proveedor no deba hacerlo y, en su lugar, llame a los métodos del objeto ContentResolver. Esto deja una capa de abstracción entre el proveedor de contenido y el componente que solicita información (por motivos de seguridad).						
+						</textarea></aside>
+					</section>
+
 				</section>
+
+
+				<section>
+					<h3>Recursos de una App</h3>
+					<section>
+					Una app requiere recursos independientes del código fuente, como imágenes, archivos de audio y otros elementos relacionados con la presentación de la aplicación.
+					
+						<ul>
+							<li class="fragment roll-in">Los recursos de la aplicación facilitan la actualización de numerosas características de la aplicación sin cambiar el código.</li>
+
+							<li class="fragment roll-in">puedes definir animaciones, menús, estilos, colores y el diseño de las interfaces de usuario de la actividad con archivos XML</li>
+						</ul>
+					</section>
+					<section>
+						<ul>
+							<li class="fragment roll-in">usando recursos alt puedes optimizar tu app para variedad de configuraciones de dispositivos, idiomas y tamaños de pantalla.</li>
+							<li class="fragment roll-in">e.g., puedes traducir las cadenas a otros idiomas en archivos independientes. Android aplica las traducciones según el calificador de idioma que anexes al nombre del directorio de recursos ( res/values-fr/ para francés) y según idioma del usuario.</li>
+							<li class="fragment roll-in">El calificador es el sufijo que incluyes en el nombre de tus directorios de recursos.</li>
+						</ul>
+					</section>
+
+				</section>
+
 
 				<section>
 					<h3>Otros partes de una App</h3>
@@ -158,19 +312,17 @@
 
 				</section>
 
-
 				<section>
-					<h3>App ejemplo: NumberDialer</h3>
-					<p>esta aplicación involucra 2 Activities :O</p>
+					<h3>App ejemplo: AppFundamentals </h3>
+					<p>esta aplicación involucra 2 Activities :O (proyecto github repo apps-moviles-con-android)</p>
 				</section>
-
 
 
 				<section>
 					<section>
 						<h2>Construyendo una App</h2>
 						<p>
-			<img title="local" src="img/build-simplified.png">
+							<img title="local" src="img/build-simplified.png">
 						</p>
 					</section>
 					<section>
@@ -207,125 +359,69 @@
                         <ul>
 					</section>
 
-					</section>
+				</section>
 
+				<section>
+					<h3>Layouts</h3>
+					<p></p>
+					<ul>
+					<li class="fragment roll-in">UI Layouts especifica en XML como se visualizan partes de una app</li>
+					<li class="fragment roll-in">algunas herramientas permiten diseñar el layout visualmente</li>
+					<li class="fragment roll-in">XML layouts se guardan bajo res/layout/*.xml</li>
+					<li class="fragment roll-in">accedido desde java: R.layout.layout_name</li>
+					<li class="fragment roll-in">accedido desde otros recursos: @layout/layout_name</li>
+					<ul>
+				</section>
 
-					<section>
-						<h3>Layouts</h3>
-						<p></p>
-                        <ul>
-                        <li class="fragment roll-in">UI Layouts especifica en XML como se visualizan partes de una app</li>
-                        <li class="fragment roll-in">algunas herramientas permiten diseñar el layout visualmente</li>
-                        <li class="fragment roll-in">XML layouts se guardan bajo res/layout/*.xml</li>
-                        <li class="fragment roll-in">accedido desde java: R.layout.layout_name</li>
-                        <li class="fragment roll-in">accedido desde otros recursos: @layout/layout_name</li>
-                        <ul>
-					</section>
+				<section>
+					<h3>Layouts múltiples</h3>
+					<p>Se puede especificar un layout diferente basado en: orientación, tamaño screen, etc</p>
+				</section>
 
-					<section>
-						<h3>Layouts múltiples</h3>
-						<p>Se puede especificar un layout diferente basado en: orientación, tamaño screen, etc</p>
-					</section>
-
-					<section>
-						<h3>R</h3>
-						<p>R.java</p>
+				<section>
+					<h3>R</h3>
+					<p>R.java</p>
+					<ul>
+						<li class="fragment roll-in">En tiempo de compilación es generada la clase R.java</li>
+						<li class="fragment roll-in">Java usa las referencias en R.java para acceder a los recursos</li>
 						<ul>
-							<li class="fragment roll-in">En tiempo de compilación es generada la clase R.java</li>
-							<li class="fragment roll-in">Java usa las referencias en R.java para acceder a los recursos</li>
-							<ul>
-					</section>
-					
-					<section>
-						<h2>Implementar clases de la app</h2>
-						<p></p>
+				</section>
+				
+				<section>
+					<h2>Implementar clases de la app</h2>
+					<p></p>
+					<ul>
+						<li class="fragment roll-in">típicamente involucra definir algún componente básico: típicamente una Activity
+						</li>
+						<li class="fragment roll-in">código de inicialización del Activity: onCreate(..) </li>
+				
+						<ol>
+							<li class="fragment roll-in">restaurar estado de la app</li>
+							<li class="fragment roll-in">setear el contenido de la vista (content view), le dice al sistema cuál es la
+								interface de usuario de la activity</li>
+							<li class="fragment roll-in">inicializar elementos específicos de la UI</li>
+							<li class="fragment roll-in">vincular código para el manejo de interacción con elementos del UI</li>
+						</ol>
+				
 						<ul>
-							<li class="fragment roll-in">típicamente involucra definir algún componente básico: típicamente una Activity
-							</li>
-							<li class="fragment roll-in">código de inicialización del Activity: onCreate(..) </li>
-					
-							<ol>
-								<li class="fragment roll-in">restaurar estado de la app</li>
-								<li class="fragment roll-in">setear el contenido de la vista (content view), le dice al sistema cuál es la
-									interface de usuario de la activity</li>
-								<li class="fragment roll-in">inicializar elementos específicos de la UI</li>
-								<li class="fragment roll-in">vincular código para el manejo de interacción con elementos del UI</li>
-							</ol>
-					
-							<ul>
-					</section>
+				</section>
 
 
-					<section>
-						<h2>Packaging de la app</h2>
-						<p>Generar el paquete con todas las clases, recursos de la app. Definido en fichero AndroidManifest.xml</p>
+				<section>
+					<h2>Packaging de la app</h2>
+					<p>Generar el paquete con todas las clases, recursos de la app. Definido en fichero AndroidManifest.xml</p>
+					<ul>
+						<li class="fragment roll-in">nombre de la aplicación</li>
+						<li class="fragment roll-in">lista de componentes que componen la app</li>
+						<li class="fragment roll-in">permisos para correr esta aplicación:
+							<pre><code data-trim>&lt;uses-permission&gt;</code></pre>
+						</li>
+						<li class="fragment roll-in">características de hardware que emplea según las versiones del API que usa, y cuál
+							es la mínima requerida:
+							<pre><code data-trim>&lt;uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" /&gt;</code></pre>
+						</li>
 						<ul>
-							<li class="fragment roll-in">nombre de la aplicación</li>
-							<li class="fragment roll-in">lista de componentes que componen la app</li>
-							<li class="fragment roll-in">permisos para correr esta aplicación:
-								<pre><code data-trim>&lt;uses-permission&gt;</code></pre>
-							</li>
-							<li class="fragment roll-in">características de hardware que emplea según las versiones del API que usa, y cuál
-								es la mínima requerida:
-								<pre><code data-trim>&lt;uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" /&gt;</code></pre>
-							</li>
-							<ul>
-					</section>
-
-					<section>
-						<h1>Activity</h1>
-						<p>Componente visual del app</p>
-						<ul>
-							<li class="fragment roll-in">provee una UI para interacción con el usuario</li>
-							<li class="fragment roll-in">una app se puede componer de un encadenamiento de 1+ Activity</li>
-							<li class="fragment roll-in">en Android, una tarea (Task) comprende una serie de Activities relacionadas, como
-								resultado de las acciones del usuario</li>
-							<li class="fragment roll-in">la navegación de una Activity a otra en Android está asociada al concepto de: Task
-								(tarea) y Task Backstack (pila de activities)</li>
-							<ul>
-					</section>
-
-
-					<section>
-						<h2>Task Backstack</h2>
-						<img title="backstack" src="img/diagram_backstack.png" style="background-color: white;">
-						<p>
-						<ul>
-							<li class="fragment roll-in">lanza una app ventana principal: Activity1</li>
-							<li class="fragment roll-in">luego inicia Activity2</li>
-							<li class="fragment roll-in">luego inicia Activity3</li>
-							<li class="fragment roll-in">se presiona botón back: Activity3 destruida</li>
-							<li class="fragment roll-in">Activity2 queda al frente</li>
-						</ul>
-						</p>
-						<p class="fragment roll-in">ref:<a
-								href="http://developer.android.com/guide/topics/fundamentals/tasks-and-back-stack.html">http://developer.android.com/guide/topics/fundamentals/tasks-and-back-stack.html</a>
-						</p>
-					</section>
-
-					<section>
-						<h3>Estados de un Activity</h3>
-						<p></p>
-                        <ul>
-                        <li class="fragment roll-in">Resumed/Running - visible, ususario interactuando</li>
-                        <li class="fragment roll-in">Paused/Visible - visible, usuario no interactúa, puede ser destruida</li>
-                        <li class="fragment roll-in">Stopped - no visible, puede ser destruida</li>
-                        <ul>
-					</section>
-					<section>
-						<h3>Callbacks de un Activity</h3>
-						<p></p>
-                        <ul>
-                        <li class="fragment roll-in">onCreate() - cuando va a ser creada</li>
-                        <li class="fragment roll-in">onStart() - cuando está por ser visible</li>
-                        <li class="fragment roll-in">onDestroy() - cuando va a ser destruida</li>
-                        <ul>
-					</section>
-					<section>
-						<h3>Ciclo de vida de un Activity</h3>
-						<p><img title="lifecycle" src="img/activity_lifecycle.png"  style="background-color: white; width: 50%; margin: 0px;"></p>
-					</section>
-
+				</section>
 
 
 			</div>
