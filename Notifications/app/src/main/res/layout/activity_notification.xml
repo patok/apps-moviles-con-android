@@ -26,8 +26,8 @@
         android:id="@+id/notification_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/notification_button2"
         android:layout_below="@+id/toast_button2"
+        android:layout_alignRight="@+id/notification_button2"
         android:layout_marginTop="46dp"
         android:text="@string/fire_notification" />
 

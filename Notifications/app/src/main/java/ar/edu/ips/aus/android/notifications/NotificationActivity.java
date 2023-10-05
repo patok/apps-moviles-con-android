@@ -2,10 +2,12 @@ package ar.edu.ips.aus.android.notifications;
 
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,10 +18,30 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 public class NotificationActivity extends Activity {
 
-	
+
 	protected static final int NOTIFICATION_ID = 0;
+	public static final String CHANNEL_ID = "GuadalCanal";
+
+	private void createNotificationChannel() {
+		// Create the NotificationChannel, but only on API 26+ because
+		// the NotificationChannel class is new and not in the support library
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			CharSequence name = "MiCanal";
+			String description = "Un canal de prueba";
+			int importance = NotificationManager.IMPORTANCE_DEFAULT;
+			NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+			channel.setDescription(description);
+			// Register the channel with the system; you can't change the importance
+			// or other notification behaviors after this
+			NotificationManager notificationManager = getSystemService(NotificationManager.class);
+			notificationManager.createNotificationChannel(channel);
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +76,8 @@ public class NotificationActivity extends Activity {
 				toast.show();
 			}
 		});
-		
+
+		createNotificationChannel();
 		Button button3 = (Button) findViewById(R.id.notification_button1);
 		button3.setOnClickListener(new OnClickListener() {
 			
@@ -63,13 +86,14 @@ public class NotificationActivity extends Activity {
 				// create a pending intent
 				Intent notificationIntent = new Intent(getApplicationContext(),
 						NotificationActivity.class);
+				notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0,
-						notificationIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+						notificationIntent, 0);
 
 				// user builder to prepare notification
-				Notification.Builder notificationBuilder = new Notification.Builder(
-						getApplicationContext())
-						.setTicker(getResources().getString(R.string.ticker_text))
+				NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
+						getApplicationContext(), CHANNEL_ID)
+						//.setTicker(getResources().getString(R.string.ticker_text))
 						.setSmallIcon(android.R.drawable.stat_sys_warning)
 						.setAutoCancel(true)
 						.setContentTitle(getResources().getString(R.string.notification_title))
@@ -77,7 +101,7 @@ public class NotificationActivity extends Activity {
 						.setContentIntent(pendingIntent);
 
 				// pass the Notification to the NotificationManager
-				NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+				NotificationManagerCompat notificationManager = NotificationManagerCompat.from(NotificationActivity.this);
 				notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
 			}
 		});
@@ -88,7 +112,7 @@ public class NotificationActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+				NotificationManagerCompat notificationManager =  NotificationManagerCompat.from(NotificationActivity.this);
 				notificationManager.cancelAll();
 			}
 		});
