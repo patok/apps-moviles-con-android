@@ -1,22 +1,40 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
-    compileSdkVersion 30
+    compileSdk 32
 
     defaultConfig {
         applicationId "ar.edu.ips.aus.seminario2.preferences_sample.storagesharedpreferences"
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdk 28
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    namespace 'ar.edu.ips.aus.seminario2.preferences_sample.storagesharedpreferences'
 }
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }

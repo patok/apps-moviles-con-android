@@ -8,17 +8,36 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/editText1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/description"
+        android:textSize="34sp"
+        android:textStyle="bold"/>
+
+    <TextView
         android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center_horizontal|center_vertical"
         android:minHeight="48dp"
-        android:text="sample"
+        android:text="0"
         android:textSize="34sp"
         android:textStyle="bold">
 
         <requestFocus />
     </TextView>
+
+
 
 </RelativeLayout>

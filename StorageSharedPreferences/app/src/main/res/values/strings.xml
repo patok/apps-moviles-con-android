@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="pref_summary_auto_delete">Este es el checkbox</string>
     <string name="pref_title_auto_delete">setting auto delete</string>
+    <string name="description">"Cantidad de veces que ha visto esta pantalla: "</string>
 
 </resources>

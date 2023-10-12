@@ -35,6 +35,9 @@ public class StorageSharedPreferences extends Activity {
 			case R.id.action_settings:
 				startPreferencesActivity();
 				return true;
+			case R.id.exit:
+				this.finish();
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
